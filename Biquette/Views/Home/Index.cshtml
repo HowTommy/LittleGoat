@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>@Resources.little_goat</h1>
+    <p class="lead">@Resources.the_famous_game_of_little_goat</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>@Resources.to_start</h2>
+        <p>
+            @Resources.create_a_game_message
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Create", "Game")">@Resources.create_game</a></p>
+    </div>
+</div>
