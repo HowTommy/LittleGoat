@@ -20,7 +20,6 @@
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SerieId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Score">
           <Key>
@@ -41,7 +40,15 @@
           <Property Name="Ended" Type="bit" Nullable="false" />
           <Property Name="CreatorId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Game__SerieId__300424B4">
+        <EntityType Name="SeriePlayers">
+          <Key>
+            <PropertyRef Name="SerieId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="SerieId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Game__SerieId__3F466844">
           <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
           <ReferentialConstraint>
@@ -53,19 +60,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Player__SerieId__2D27B809">
-          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
-          <End Role="Player" Type="Self.Player" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Serie">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Player">
-              <PropertyRef Name="SerieId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Score__GameId__32E0915F">
+        <Association Name="FK__Score__GameId__4222D4EF">
           <End Role="Game" Type="Self.Game" Multiplicity="1" />
           <End Role="Score" Type="Self.Score" Multiplicity="*" />
           <ReferentialConstraint>
@@ -77,7 +72,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Score__PlayerId__33D4B598">
+        <Association Name="FK__Score__PlayerId__4316F928">
           <End Role="Player" Type="Self.Player" Multiplicity="1" />
           <End Role="Score" Type="Self.Score" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,7 +84,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Serie__CreatorId__2C3393D0">
+        <Association Name="FK__Serie__CreatorId__38996AB5">
           <End Role="Player" Type="Self.Player" Multiplicity="1" />
           <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
           <ReferentialConstraint>
@@ -101,30 +96,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SeriePlay__Playe__3C69FB99">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="SeriePlayers" Type="Self.SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SeriePlay__Serie__3B75D760">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
+          <End Role="SeriePlayers" Type="Self.SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LittleGoatModelStoreContainer">
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Serie" EntityType="Self.Serie" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Game__SerieId__300424B4" Association="Self.FK__Game__SerieId__300424B4">
+          <EntitySet Name="SeriePlayers" EntityType="Self.SeriePlayers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Game__SerieId__3F466844" Association="Self.FK__Game__SerieId__3F466844">
             <End Role="Serie" EntitySet="Serie" />
             <End Role="Game" EntitySet="Game" />
           </AssociationSet>
-          <AssociationSet Name="FK__Player__SerieId__2D27B809" Association="Self.FK__Player__SerieId__2D27B809">
-            <End Role="Serie" EntitySet="Serie" />
-            <End Role="Player" EntitySet="Player" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Score__GameId__32E0915F" Association="Self.FK__Score__GameId__32E0915F">
+          <AssociationSet Name="FK__Score__GameId__4222D4EF" Association="Self.FK__Score__GameId__4222D4EF">
             <End Role="Game" EntitySet="Game" />
             <End Role="Score" EntitySet="Score" />
           </AssociationSet>
-          <AssociationSet Name="FK__Score__PlayerId__33D4B598" Association="Self.FK__Score__PlayerId__33D4B598">
+          <AssociationSet Name="FK__Score__PlayerId__4316F928" Association="Self.FK__Score__PlayerId__4316F928">
             <End Role="Player" EntitySet="Player" />
             <End Role="Score" EntitySet="Score" />
           </AssociationSet>
-          <AssociationSet Name="FK__Serie__CreatorId__2C3393D0" Association="Self.FK__Serie__CreatorId__2C3393D0">
+          <AssociationSet Name="FK__Serie__CreatorId__38996AB5" Association="Self.FK__Serie__CreatorId__38996AB5">
             <End Role="Player" EntitySet="Player" />
             <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Playe__3C69FB99" Association="Self.FK__SeriePlay__Playe__3C69FB99">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Serie__3B75D760" Association="Self.FK__SeriePlay__Serie__3B75D760">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -140,8 +164,8 @@
           <Property Name="SerieId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Ended" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Serie" Relationship="Self.FK__Game__SerieId__300424B4" FromRole="Game" ToRole="Serie" />
-          <NavigationProperty Name="Score" Relationship="Self.FK__Score__GameId__32E0915F" FromRole="Game" ToRole="Score" />
+          <NavigationProperty Name="Serie" Relationship="Self.FK__Game__SerieId__3F466844" FromRole="Game" ToRole="Serie" />
+          <NavigationProperty Name="Score" Relationship="Self.FK__Score__GameId__4222D4EF" FromRole="Game" ToRole="Score" />
         </EntityType>
         <EntityType Name="Player">
           <Key>
@@ -149,10 +173,9 @@
           </Key>
           <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SerieId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Serie" Relationship="Self.FK__Player__SerieId__2D27B809" FromRole="Player" ToRole="Serie" />
-          <NavigationProperty Name="Score" Relationship="Self.FK__Score__PlayerId__33D4B598" FromRole="Player" ToRole="Score" />
-          <NavigationProperty Name="Serie1" Relationship="Self.FK__Serie__CreatorId__2C3393D0" FromRole="Player" ToRole="Serie" />
+          <NavigationProperty Name="Score" Relationship="Self.FK__Score__PlayerId__4316F928" FromRole="Player" ToRole="Score" />
+          <NavigationProperty Name="Serie" Relationship="Self.FK__Serie__CreatorId__38996AB5" FromRole="Player" ToRole="Serie" />
+          <NavigationProperty Name="Serie1" Relationship="Self.SeriePlayers" FromRole="Player" ToRole="Serie" />
         </EntityType>
         <EntityType Name="Score">
           <Key>
@@ -162,8 +185,8 @@
           <Property Name="GameId" Type="Int32" Nullable="false" />
           <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Points" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Game" Relationship="Self.FK__Score__GameId__32E0915F" FromRole="Score" ToRole="Game" />
-          <NavigationProperty Name="Player" Relationship="Self.FK__Score__PlayerId__33D4B598" FromRole="Score" ToRole="Player" />
+          <NavigationProperty Name="Game" Relationship="Self.FK__Score__GameId__4222D4EF" FromRole="Score" ToRole="Game" />
+          <NavigationProperty Name="Player" Relationship="Self.FK__Score__PlayerId__4316F928" FromRole="Score" ToRole="Player" />
         </EntityType>
         <EntityType Name="Serie">
           <Key>
@@ -174,11 +197,11 @@
           <Property Name="Started" Type="Boolean" Nullable="false" />
           <Property Name="Ended" Type="Boolean" Nullable="false" />
           <Property Name="CreatorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Game" Relationship="Self.FK__Game__SerieId__300424B4" FromRole="Serie" ToRole="Game" />
-          <NavigationProperty Name="Player" Relationship="Self.FK__Player__SerieId__2D27B809" FromRole="Serie" ToRole="Player" />
-          <NavigationProperty Name="Player1" Relationship="Self.FK__Serie__CreatorId__2C3393D0" FromRole="Serie" ToRole="Player" />
+          <NavigationProperty Name="Game" Relationship="Self.FK__Game__SerieId__3F466844" FromRole="Serie" ToRole="Game" />
+          <NavigationProperty Name="Player" Relationship="Self.FK__Serie__CreatorId__38996AB5" FromRole="Serie" ToRole="Player" />
+          <NavigationProperty Name="Player1" Relationship="Self.SeriePlayers" FromRole="Serie" ToRole="Player" />
         </EntityType>
-        <Association Name="FK__Game__SerieId__300424B4">
+        <Association Name="FK__Game__SerieId__3F466844">
           <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
           <End Role="Game" Type="Self.Game" Multiplicity="*" />
           <ReferentialConstraint>
@@ -190,7 +213,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Score__GameId__32E0915F">
+        <Association Name="FK__Score__GameId__4222D4EF">
           <End Role="Game" Type="Self.Game" Multiplicity="1" />
           <End Role="Score" Type="Self.Score" Multiplicity="*" />
           <ReferentialConstraint>
@@ -202,19 +225,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Player__SerieId__2D27B809">
-          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
-          <End Role="Player" Type="Self.Player" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Serie">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Player">
-              <PropertyRef Name="SerieId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Score__PlayerId__33D4B598">
+        <Association Name="FK__Score__PlayerId__4316F928">
           <End Role="Player" Type="Self.Player" Multiplicity="1" />
           <End Role="Score" Type="Self.Score" Multiplicity="*" />
           <ReferentialConstraint>
@@ -226,7 +237,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Serie__CreatorId__2C3393D0">
+        <Association Name="FK__Serie__CreatorId__38996AB5">
           <End Role="Player" Type="Self.Player" Multiplicity="1" />
           <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
           <ReferentialConstraint>
@@ -238,28 +249,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SeriePlayers">
+          <End Role="Player" Type="Self.Player" Multiplicity="*" />
+          <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="LittleGoatEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Game" EntityType="Self.Game" />
           <EntitySet Name="Player" EntityType="Self.Player" />
           <EntitySet Name="Score" EntityType="Self.Score" />
           <EntitySet Name="Serie" EntityType="Self.Serie" />
-          <AssociationSet Name="FK__Game__SerieId__300424B4" Association="Self.FK__Game__SerieId__300424B4">
+          <AssociationSet Name="FK__Game__SerieId__3F466844" Association="Self.FK__Game__SerieId__3F466844">
             <End Role="Serie" EntitySet="Serie" />
             <End Role="Game" EntitySet="Game" />
           </AssociationSet>
-          <AssociationSet Name="FK__Score__GameId__32E0915F" Association="Self.FK__Score__GameId__32E0915F">
+          <AssociationSet Name="FK__Score__GameId__4222D4EF" Association="Self.FK__Score__GameId__4222D4EF">
             <End Role="Game" EntitySet="Game" />
             <End Role="Score" EntitySet="Score" />
           </AssociationSet>
-          <AssociationSet Name="FK__Player__SerieId__2D27B809" Association="Self.FK__Player__SerieId__2D27B809">
-            <End Role="Serie" EntitySet="Serie" />
-            <End Role="Player" EntitySet="Player" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Score__PlayerId__33D4B598" Association="Self.FK__Score__PlayerId__33D4B598">
+          <AssociationSet Name="FK__Score__PlayerId__4316F928" Association="Self.FK__Score__PlayerId__4316F928">
             <End Role="Player" EntitySet="Player" />
             <End Role="Score" EntitySet="Score" />
           </AssociationSet>
-          <AssociationSet Name="FK__Serie__CreatorId__2C3393D0" Association="Self.FK__Serie__CreatorId__2C3393D0">
+          <AssociationSet Name="FK__Serie__CreatorId__38996AB5" Association="Self.FK__Serie__CreatorId__38996AB5">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="SeriePlayers" Association="Self.SeriePlayers">
             <End Role="Player" EntitySet="Player" />
             <End Role="Serie" EntitySet="Serie" />
           </AssociationSet>
@@ -285,7 +300,6 @@
               <MappingFragment StoreEntitySet="Player">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -310,6 +324,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="SeriePlayers" TypeName="LittleGoatModel.SeriePlayers" StoreEntitySet="SeriePlayers">
+            <EndProperty Name="Player">
+              <ScalarProperty Name="Id" ColumnName="PlayerId" />
+            </EndProperty>
+            <EndProperty Name="Serie">
+              <ScalarProperty Name="Id" ColumnName="SerieId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

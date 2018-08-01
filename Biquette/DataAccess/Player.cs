@@ -7,30 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Biquette
+namespace Biquette.DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Serie
+    public partial class Player
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Serie()
+        public Player()
         {
-            this.Game = new HashSet<Game>();
-            this.Player = new HashSet<Player>();
+            this.Score = new HashSet<Score>();
+            this.Serie = new HashSet<Serie>();
+            this.Serie1 = new HashSet<Serie>();
         }
     
         public string Id { get; set; }
-        public System.DateTime CreationDate { get; set; }
-        public bool Started { get; set; }
-        public bool Ended { get; set; }
-        public string CreatorId { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Game> Game { get; set; }
+        public virtual ICollection<Score> Score { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Player> Player { get; set; }
-        public virtual Player Player1 { get; set; }
+        public virtual ICollection<Serie> Serie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Serie> Serie1 { get; set; }
     }
 }

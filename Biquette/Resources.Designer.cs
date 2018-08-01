@@ -88,6 +88,15 @@ namespace Biquette {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre nom ne doit pas être vide.
+        /// </summary>
+        public static string name_cant_be_empty {
+            get {
+                return ResourceManager.GetString("name_cant_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Pas d&apos;autres joueurs pour le moment....
         /// </summary>
         public static string no_other_players_yet {
@@ -111,6 +120,15 @@ namespace Biquette {
         public static string play {
             get {
                 return ResourceManager.GetString("play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Commencer une nouvelle partie.
+        /// </summary>
+        public static string start_new_serie {
+            get {
+                return ResourceManager.GetString("start_new_serie", resourceCulture);
             }
         }
         

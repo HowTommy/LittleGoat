@@ -1,8 +1,7 @@
 ﻿CREATE TABLE [dbo].[Player]
 (
 	[Id] NVARCHAR(50) NOT NULL PRIMARY KEY, 
-    [Name] NVARCHAR(50) NOT NULL,
-	[SerieId] NVARCHAR(50) NULL
+    [Name] NVARCHAR(50) NOT NULL
 )
 
 CREATE TABLE [dbo].[Serie]
@@ -15,7 +14,14 @@ CREATE TABLE [dbo].[Serie]
 	FOREIGN KEY (CreatorId) REFERENCES [Player](Id)
 )
 
-ALTER TABLE [dbo].[Player] ADD FOREIGN KEY (SerieId) REFERENCES Serie(Id)
+CREATE TABLE [dbo].[SeriePlayers]
+(
+	[SerieId] NVARCHAR(50) NOT NULL,
+	[PlayerId] NVARCHAR(50) NOT NULL, 
+	FOREIGN KEY (SerieId) REFERENCES [Serie](Id),
+	FOREIGN KEY (PlayerId) REFERENCES [Player](Id),
+	PRIMARY KEY ([SerieId], [PlayerId])
+)
 
 CREATE TABLE [dbo].[Game]
 (

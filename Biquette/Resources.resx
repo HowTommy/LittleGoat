@@ -126,6 +126,9 @@
   <data name="little_goat" xml:space="preserve">
     <value>Biquette</value>
   </data>
+  <data name="name_cant_be_empty" xml:space="preserve">
+    <value>Votre nom ne doit pas être vide</value>
+  </data>
   <data name="no_other_players_yet" xml:space="preserve">
     <value>Pas d'autres joueurs pour le moment...</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="play" xml:space="preserve">
     <value>Jouer</value>
+  </data>
+  <data name="start_new_serie" xml:space="preserve">
+    <value>Commencer une nouvelle partie</value>
   </data>
   <data name="the_famous_game_of_little_goat" xml:space="preserve">
     <value>Le célèbre jeu de mémoire !</value>

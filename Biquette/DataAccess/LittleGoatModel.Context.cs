@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Biquette
+namespace Biquette.DataAccess
 {
     using System;
     using System.Data.Entity;
