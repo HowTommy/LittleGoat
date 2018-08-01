@@ -9,16 +9,42 @@
 
 <div>
 	<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
+
+	@if (Model.CardFromDeck != null)
+	{
+		<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card card-from-deck" style="display: none;"  />
+	}
 </div>
+
+<hr />
 
 @if (Model.FirstTwoCards.Any())
 {
 	foreach (var card in Model.FirstTwoCards)
 	{
-		<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card" />
+		<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card first-two" />
 	}
 }
 @for (int i = 0; i < 4 - Model.FirstTwoCards.Count; i++)
 {
 	<img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card" />
+}
+
+@section scripts{
+	<script>
+		function hideFirstTwoCards() {
+			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
+			$('.card-from-deck').show();
+		}
+
+	@if (Model.FirstTwoCards.Any())
+	{
+		@:setTimeout(hideFirstTwoCards, @((Model.DateStopShowFirstTwoCards - DateTime.UtcNow).TotalMilliseconds));
+	}
+	else
+	{
+		@:$('.card-from-deck').show();
+	}
+
+	</script>
 }

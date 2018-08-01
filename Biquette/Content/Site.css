@@ -28,9 +28,11 @@ textarea {
 }
 
 .game-card {
-	height: 150px;
+	max-height: 150px;
+	max-width: 20%;
 }
 
 .deck {
-	height: 180px;
+	max-height: 180px;
+	max-width: 25%;
 }

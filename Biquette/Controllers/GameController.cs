@@ -236,6 +236,14 @@
                 {
                     model.FirstTwoCards = entities.GameCard.Where(p => p.PlayerId == playerId).OrderBy(p => p.Position).Take(2).ToList();
                 }
+
+                if(game.NextToPlayId == playerId)
+                {
+                    model.CardFromDeck = entities.GameCard
+                        .Where(p => p.GameId == game.Id && p.PlayerId == null)
+                        .OrderBy(p => p.Position)
+                        .FirstOrDefault();
+                }
             }
 
             return View(model);
