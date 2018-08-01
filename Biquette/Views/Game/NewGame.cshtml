@@ -7,6 +7,11 @@
 
 <h2>@Resources.create_game</h2>
 
+@if (ViewBag.ErrorMessage != null)
+{
+	<p style="color: red;">@ViewBag.ErrorMessage</p>
+}
+
 @using (Html.BeginForm())
 {
 	@Html.AntiForgeryToken()
@@ -16,15 +21,15 @@
 		<div class="form-group">
 			<label class="control-label col-md-2">@Resources.url_to_share</label>
 			<div class="col-md-10">
-				<input type="text" class="form-control" name="url" value="@Url.Action("NewGame", "Game", new { key = Model.Key }, "http")" />
+				<input type="text" class="form-control inlineblock" name="url" value="@Url.Action("NewGame", "Game", new { key = Model.Key }, "http")" id="url-to-share" />
+				<input type="button" value="@Resources.copy_to_clipboard" class="btn btn-default inlineblock" onclick="copyToClipboard()"/>
 			</div>
 		</div>
 		<hr />
 		<div class="form-group">
 			<label class="control-label col-md-2">@Resources.players</label>
 			<div class="col-md-10">
-				<ul id="players-list" class="list-group">
-				</ul>
+				<ul id="players-list" class="list-group"></ul>
 			</div>
 		</div>
 		@if (Model.IsCreator)
@@ -43,14 +48,27 @@
 		function loadPlayers() {
 			$.post('@Url.Action("GetCurrentPlayers", "Game", new { key = Model.Key })', function (result) {
 				$("ul").empty();
-				$.each(result, function (i, item) {
+				$.each(result.players, function (i, item) {
 					$('#players-list').append('<li class="list-group-item">' + item + '</li>');
 				});
+				if (result.stopCalls) {
+					clearInterval(intervalID);
+				}
+				if (result.gameStarted) {
+					document.location = '@Url.Action("Play", "Game", new { key = Model.Key })';
+				}
 			});
+		}
+
+		function copyToClipboard() {
+			var copyText = document.getElementById("url-to-share");
+			copyText.focus();
+			copyText.select();
+			document.execCommand("copy");
 		}
 
 		loadPlayers();
 
-		var intervalID = window.setInterval(loadPlayers, 3000);
+		var intervalID = window.setInterval(loadPlayers, 2500);
 	</script>
 }

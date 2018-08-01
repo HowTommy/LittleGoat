@@ -5,19 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="eebdeaca5ec049699d5da59064032eaa" Name="Diagram1">
-        <EntityTypeShape EntityType="LittleGoatModel.Game" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LittleGoatModel.Player" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LittleGoatModel.Score" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LittleGoatModel.Serie" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="LittleGoatModel.FK__Game__SerieId__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="LittleGoatModel.FK__Score__GameId__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="LittleGoatModel.FK__Score__PlayerId__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="LittleGoatModel.FK__Serie__CreatorId__4BAC3F29" ManuallyRouted="false" />
-        <AssociationConnector Association="LittleGoatModel.SeriePlayers" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="LittleGoatModel.GameCard" Width="1.5" PointX="7.5" PointY="7.25" />
-        <AssociationConnector Association="LittleGoatModel.FK__Game__LittleGoat__6FE99F9F" />
-        <AssociationConnector Association="LittleGoatModel.FK__GameCard__GameId__7A672E12" />
-        <AssociationConnector Association="LittleGoatModel.FK__GameCard__Player__7B5B524B" />
+        <EntityTypeShape EntityType="LittleGoatModel.Game" Width="1.5" PointX="5.25" PointY="6.125" />
+        <EntityTypeShape EntityType="LittleGoatModel.GameCard" Width="1.5" PointX="7.5" PointY="2.625" />
+        <EntityTypeShape EntityType="LittleGoatModel.Player" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="LittleGoatModel.Score" Width="1.5" PointX="10.5" PointY="5.875" />
+        <EntityTypeShape EntityType="LittleGoatModel.Serie" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="LittleGoatModel.SeriePlayers" Width="1.5" PointX="8.25" PointY="6.875" />
+        <AssociationConnector Association="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42" />
+        <AssociationConnector Association="LittleGoatModel.FK__Game__LittleGoat__2D27B809" />
+        <AssociationConnector Association="LittleGoatModel.FK__Game__NextToPlay__2F10007B" />
+        <AssociationConnector Association="LittleGoatModel.FK__Game__SerieId__2C3393D0" />
+        <AssociationConnector Association="LittleGoatModel.FK__GameCard__GameId__35BCFE0A" />
+        <AssociationConnector Association="LittleGoatModel.FK__Score__GameId__31EC6D26" />
+        <AssociationConnector Association="LittleGoatModel.FK__GameCard__Player__36B12243" />
+        <AssociationConnector Association="LittleGoatModel.FK__Score__PlayerId__32E0915F" />
+        <AssociationConnector Association="LittleGoatModel.FK__Serie__CreatorId__25869641" />
+        <AssociationConnector Association="LittleGoatModel.FK__SeriePlay__Playe__29572725" />
+        <AssociationConnector Association="LittleGoatModel.FK__SeriePlay__Serie__286302EC" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

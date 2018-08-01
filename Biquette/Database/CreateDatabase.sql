@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[SeriePlayers]
 (
 	[SerieId] NVARCHAR(50) NOT NULL,
 	[PlayerId] NVARCHAR(50) NOT NULL, 
+	[Position] INT NOT NULL,
 	FOREIGN KEY (SerieId) REFERENCES [Serie](Id),
 	FOREIGN KEY (PlayerId) REFERENCES [Player](Id),
 	PRIMARY KEY ([SerieId], [PlayerId])
@@ -29,9 +30,13 @@ CREATE TABLE [dbo].[Game]
 	[SerieId] NVARCHAR(50) NOT NULL, 
     [CreationDate] DATETIME NOT NULL, 
 	[Ended] BIT NOT NULL,
-	[LittleGoatCallerId] NVARCHAR(50) NOT NULL,
+	[CardGiverId] NVARCHAR(50) NOT NULL,
+	[LittleGoatCallerId] NVARCHAR(50) NULL,
+	[NextToPlayId] NVARCHAR(50) NOT NULL,
     FOREIGN KEY (SerieId) REFERENCES Serie(Id),
-	FOREIGN KEY (LittleGoatCallerId) REFERENCES Player(Id)
+	FOREIGN KEY (LittleGoatCallerId) REFERENCES Player(Id),
+	FOREIGN KEY (CardGiverId) REFERENCES Player(Id),
+	FOREIGN KEY (NextToPlayId) REFERENCES Player(Id)
 )
 
 CREATE TABLE [dbo].[Score]
@@ -50,7 +55,7 @@ CREATE TABLE [dbo].[GameCard]
 	[Value] INT NOT NULL, 
 	[GameId] INT NOT NULL,
 	[PlayerId] NVARCHAR(50) NULL,
-	[Position] INT NOT NULL,
+	[Position] INT NULL,
 	[IsCover] BIT NOT NULL,
 	[FileName] NVARCHAR(50) NOT NULL,
 	PRIMARY KEY ([Symbol], [Value], [GameId]),

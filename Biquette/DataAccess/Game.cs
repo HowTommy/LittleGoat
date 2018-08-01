@@ -17,21 +17,25 @@ namespace Biquette.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Game()
         {
-            this.Score = new HashSet<Score>();
             this.GameCard = new HashSet<GameCard>();
+            this.Score = new HashSet<Score>();
         }
     
         public int Id { get; set; }
         public string SerieId { get; set; }
         public System.DateTime CreationDate { get; set; }
         public bool Ended { get; set; }
+        public string CardGiverId { get; set; }
         public string LittleGoatCallerId { get; set; }
+        public string NextToPlayId { get; set; }
     
+        public virtual Player Player { get; set; }
+        public virtual Player Player1 { get; set; }
+        public virtual Player Player2 { get; set; }
         public virtual Serie Serie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Score> Score { get; set; }
-        public virtual Player Player { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GameCard> GameCard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Score> Score { get; set; }
     }
 }

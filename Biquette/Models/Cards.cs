@@ -10,6 +10,11 @@
         {
             _cards = cards;
         }
+
+        public List<Card> GetAllCards()
+        {
+            return _cards;
+        }
         
         public static Cards AllCards
         {

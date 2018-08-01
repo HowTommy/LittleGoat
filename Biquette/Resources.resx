@@ -120,11 +120,17 @@
   <data name="choose_name" xml:space="preserve">
     <value>Choisissez un nom</value>
   </data>
+  <data name="copy_to_clipboard" xml:space="preserve">
+    <value>Copier dans le presse-papier</value>
+  </data>
   <data name="create_a_game_message" xml:space="preserve">
     <value>Créez une partie en cliquant sur le bouton ci-dessous, copiez-collez ensuite le lien et envoyez-le à vos ami·es !</value>
   </data>
   <data name="create_game" xml:space="preserve">
     <value>Créer une partie</value>
+  </data>
+  <data name="in_game" xml:space="preserve">
+    <value>En jeu</value>
   </data>
   <data name="little_goat" xml:space="preserve">
     <value>Biquette</value>
@@ -161,5 +167,8 @@
   </data>
   <data name="your_name" xml:space="preserve">
     <value>Votre nom</value>
+  </data>
+  <data name="you_cant_play_alone" xml:space="preserve">
+    <value>Vous ne pouvez pas jouer seul·e !</value>
   </data>
 </root>

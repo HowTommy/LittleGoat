@@ -1,0 +1,24 @@
+﻿@model Biquette.ViewModels.PlayViewModel
+
+@{
+	ViewBag.Title = Resources.in_game;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Resources.in_game</h2>
+
+<div>
+	<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
+</div>
+
+@if (Model.FirstTwoCards.Any())
+{
+	foreach (var card in Model.FirstTwoCards)
+	{
+		<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card" />
+	}
+}
+@for (int i = 0; i < 4 - Model.FirstTwoCards.Count; i++)
+{
+	<img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card" />
+}

@@ -156,6 +156,9 @@
     <Compile Include="DataAccess\Game.cs">
       <DependentUpon>LittleGoatModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\GameCard.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\LittleGoatModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -180,6 +183,9 @@
     <Compile Include="DataAccess\Serie.cs">
       <DependentUpon>LittleGoatModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\SeriePlayers.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Filter\IsAuthenticated.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,6 +203,7 @@
     </Compile>
     <Compile Include="ViewModels\ChooseNameViewModel.cs" />
     <Compile Include="ViewModels\NewGameViewModel.cs" />
+    <Compile Include="ViewModels\PlayViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -242,6 +249,8 @@
     <Content Include="Content\Images\ace_of_hearts.jpg" />
     <Content Include="Content\Images\ace_of_spades.jpg" />
     <Content Include="Content\Images\ace_of_spades2.jpg" />
+    <Content Include="Content\Images\back_of_card.jpg" />
+    <Content Include="Content\Images\deck.jpg" />
     <Content Include="Content\Images\jack_of_clubs.jpg" />
     <Content Include="Content\Images\jack_of_clubs2.jpg" />
     <Content Include="Content\Images\jack_of_diamonds.jpg" />
@@ -319,6 +328,7 @@
     <Content Include="Views\Game\NewGame.cshtml" />
     <Content Include="Views\Game\ChooseName.cshtml" />
     <Content Include="Views\Home\test.cshtml" />
+    <Content Include="Views\Game\Play.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -364,7 +374,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51972</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51972/</IISUrl>
+          <IISUrl>http://localhost:51973/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

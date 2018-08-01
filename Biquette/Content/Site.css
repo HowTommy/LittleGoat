@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.inlineblock {
+	display: inline-block;
+}
+
+.game-card {
+	height: 150px;
+}
+
+.deck {
+	height: 180px;
+}

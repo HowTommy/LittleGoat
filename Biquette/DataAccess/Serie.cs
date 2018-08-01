@@ -18,7 +18,7 @@ namespace Biquette.DataAccess
         public Serie()
         {
             this.Game = new HashSet<Game>();
-            this.Player1 = new HashSet<Player>();
+            this.SeriePlayers = new HashSet<SeriePlayers>();
         }
     
         public string Id { get; set; }
@@ -31,6 +31,6 @@ namespace Biquette.DataAccess
         public virtual ICollection<Game> Game { get; set; }
         public virtual Player Player { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Player> Player1 { get; set; }
+        public virtual ICollection<SeriePlayers> SeriePlayers { get; set; }
     }
 }

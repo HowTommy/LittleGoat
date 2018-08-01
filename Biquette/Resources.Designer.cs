@@ -70,6 +70,15 @@ namespace Biquette {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Copier dans le presse-papier.
+        /// </summary>
+        public static string copy_to_clipboard {
+            get {
+                return ResourceManager.GetString("copy_to_clipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Créez une partie en cliquant sur le bouton ci-dessous, copiez-collez ensuite le lien et envoyez-le à vos ami·es !.
         /// </summary>
         public static string create_a_game_message {
@@ -84,6 +93,15 @@ namespace Biquette {
         public static string create_game {
             get {
                 return ResourceManager.GetString("create_game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à En jeu.
+        /// </summary>
+        public static string in_game {
+            get {
+                return ResourceManager.GetString("in_game", resourceCulture);
             }
         }
         
@@ -183,6 +201,15 @@ namespace Biquette {
         public static string validate {
             get {
                 return ResourceManager.GetString("validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vous ne pouvez pas jouer seul·e !.
+        /// </summary>
+        public static string you_cant_play_alone {
+            get {
+                return ResourceManager.GetString("you_cant_play_alone", resourceCulture);
             }
         }
         

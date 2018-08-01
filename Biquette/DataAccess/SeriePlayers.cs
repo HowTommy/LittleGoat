@@ -12,17 +12,13 @@ namespace Biquette.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class GameCard
+    public partial class SeriePlayers
     {
-        public int Symbol { get; set; }
-        public int Value { get; set; }
-        public int GameId { get; set; }
+        public string SerieId { get; set; }
         public string PlayerId { get; set; }
-        public Nullable<int> Position { get; set; }
-        public bool IsCover { get; set; }
-        public string FileName { get; set; }
+        public int Position { get; set; }
     
-        public virtual Game Game { get; set; }
         public virtual Player Player { get; set; }
+        public virtual Serie Serie { get; set; }
     }
 }
