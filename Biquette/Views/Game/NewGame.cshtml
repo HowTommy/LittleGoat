@@ -1,0 +1,40 @@
+﻿@model  Biquette.ViewModels.NewGameViewModel
+
+@{
+	ViewBag.Title = Resources.create_game;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Resources.create_game</h2>
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+	<hr />
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-md-2">@Resources.url_to_share</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" name="url" value="@Url.Action("Join", "Game", new { key = Model.Key }, "http")" />
+			</div>
+		</div>
+		<hr />
+		<div class="form-group">
+			<label class="control-label col-md-2">@Resources.your_name</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" name="playerName" />
+			</div>
+		</div>
+		<hr />
+		<div class="form-group">
+			<label class="control-label col-md-2">@Resources.other_players</label>
+			<div class="col-md-10">
+				<ul id="players-list">
+					<li>@Resources.no_other_players_yet</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+}
+

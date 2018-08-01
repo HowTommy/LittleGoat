@@ -126,10 +126,25 @@
   <data name="little_goat" xml:space="preserve">
     <value>Biquette</value>
   </data>
+  <data name="no_other_players_yet" xml:space="preserve">
+    <value>Pas d'autres joueurs pour le moment...</value>
+  </data>
+  <data name="other_players" xml:space="preserve">
+    <value>Autres joueurs</value>
+  </data>
+  <data name="play" xml:space="preserve">
+    <value>Jouer</value>
+  </data>
   <data name="the_famous_game_of_little_goat" xml:space="preserve">
     <value>Le célèbre jeu de mémoire !</value>
   </data>
   <data name="to_start" xml:space="preserve">
     <value>Pour commencer</value>
+  </data>
+  <data name="url_to_share" xml:space="preserve">
+    <value>URL à envoyer aux autres joueurs</value>
+  </data>
+  <data name="your_name" xml:space="preserve">
+    <value>Votre nom</value>
   </data>
 </root>

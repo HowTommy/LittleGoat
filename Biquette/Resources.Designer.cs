@@ -88,6 +88,33 @@ namespace Biquette {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Pas d&apos;autres joueurs pour le moment....
+        /// </summary>
+        public static string no_other_players_yet {
+            get {
+                return ResourceManager.GetString("no_other_players_yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Autres joueurs.
+        /// </summary>
+        public static string other_players {
+            get {
+                return ResourceManager.GetString("other_players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Jouer.
+        /// </summary>
+        public static string play {
+            get {
+                return ResourceManager.GetString("play", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Le célèbre jeu de mémoire !.
         /// </summary>
         public static string the_famous_game_of_little_goat {
@@ -102,6 +129,24 @@ namespace Biquette {
         public static string to_start {
             get {
                 return ResourceManager.GetString("to_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à URL à envoyer aux autres joueurs.
+        /// </summary>
+        public static string url_to_share {
+            get {
+                return ResourceManager.GetString("url_to_share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Votre nom.
+        /// </summary>
+        public static string your_name {
+            get {
+                return ResourceManager.GetString("your_name", resourceCulture);
             }
         }
     }
