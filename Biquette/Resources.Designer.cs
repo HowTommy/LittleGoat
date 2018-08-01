@@ -61,6 +61,15 @@ namespace Biquette {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Choisissez un nom.
+        /// </summary>
+        public static string choose_name {
+            get {
+                return ResourceManager.GetString("choose_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Créez une partie en cliquant sur le bouton ci-dessous, copiez-collez ensuite le lien et envoyez-le à vos ami·es !.
         /// </summary>
         public static string create_a_game_message {
@@ -106,15 +115,6 @@ namespace Biquette {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Autres joueurs.
-        /// </summary>
-        public static string other_players {
-            get {
-                return ResourceManager.GetString("other_players", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Jouer.
         /// </summary>
         public static string play {
@@ -124,11 +124,29 @@ namespace Biquette {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Joueurs.
+        /// </summary>
+        public static string players {
+            get {
+                return ResourceManager.GetString("players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Commencer une nouvelle partie.
         /// </summary>
         public static string start_new_serie {
             get {
                 return ResourceManager.GetString("start_new_serie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Démarrer la partie.
+        /// </summary>
+        public static string start_the_game {
+            get {
+                return ResourceManager.GetString("start_the_game", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace Biquette {
         public static string url_to_share {
             get {
                 return ResourceManager.GetString("url_to_share", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Valider.
+        /// </summary>
+        public static string validate {
+            get {
+                return ResourceManager.GetString("validate", resourceCulture);
             }
         }
         

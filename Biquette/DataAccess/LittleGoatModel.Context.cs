@@ -29,5 +29,6 @@ namespace Biquette.DataAccess
         public virtual DbSet<Player> Player { get; set; }
         public virtual DbSet<Score> Score { get; set; }
         public virtual DbSet<Serie> Serie { get; set; }
+        public virtual DbSet<GameCard> GameCard { get; set; }
     }
 }

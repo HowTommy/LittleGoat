@@ -11,7 +11,7 @@
             _cards = cards;
         }
         
-        public static Cards NewGame
+        public static Cards AllCards
         {
             get
             {

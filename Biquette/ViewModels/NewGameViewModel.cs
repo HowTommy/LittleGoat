@@ -4,8 +4,6 @@
     {
         public string Key { get; set; }
 
-        public string PlayerName { get; set; }
-
-        public string ErrorMessage { get; set; }
+        public bool IsCreator { get; set; }
     }
 }

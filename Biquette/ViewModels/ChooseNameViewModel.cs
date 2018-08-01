@@ -4,8 +4,6 @@
     {
         public string Name { get; set; }
 
-        public string ErrorMessage { get; set; }
-
         public string ReturnUrl { get; set; }
     }
 }

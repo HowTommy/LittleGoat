@@ -150,20 +150,39 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="DataAccess\Game.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="LittleGoatModel.Context.cs">
+    <Compile Include="DataAccess\LittleGoatModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LittleGoatModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="LittleGoatModel.Designer.cs">
+    <Compile Include="DataAccess\LittleGoatModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\LittleGoatModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LittleGoatModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Player.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Score.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Serie.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Filter\IsAuthenticated.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardColor.cs" />
@@ -176,6 +195,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ChooseNameViewModel.cs" />
     <Compile Include="ViewModels\NewGameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -246,27 +266,33 @@
     <Content Include="Content\Images\queen_of_hearts2.jpg" />
     <Content Include="Content\Images\queen_of_spades.jpg" />
     <Content Include="Content\Images\queen_of_spades2.jpg" />
+    <Content Include="DataAccess\LittleGoatModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LittleGoatModel.edmx</DependentUpon>
+      <LastGenOutput>LittleGoatModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataAccess\LittleGoatModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LittleGoatModel.edmx</DependentUpon>
+      <LastGenOutput>LittleGoatModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Database\CreateDatabase.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="LittleGoatModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LittleGoatModel.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="LittleGoatModel.edmx">
+    <EntityDeploy Include="DataAccess\LittleGoatModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LittleGoatModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="LittleGoatModel.edmx.diagram">
+    <Content Include="DataAccess\LittleGoatModel.edmx.diagram">
       <DependentUpon>LittleGoatModel.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -291,11 +317,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Game\NewGame.cshtml" />
+    <Content Include="Views\Game\ChooseName.cshtml" />
+    <Content Include="Views\Home\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Business\" />
-    <Folder Include="DataAccess\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

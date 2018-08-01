@@ -16,25 +16,41 @@
 		<div class="form-group">
 			<label class="control-label col-md-2">@Resources.url_to_share</label>
 			<div class="col-md-10">
-				<input type="text" class="form-control" name="url" value="@Url.Action("Join", "Game", new { key = Model.Key }, "http")" />
+				<input type="text" class="form-control" name="url" value="@Url.Action("NewGame", "Game", new { key = Model.Key }, "http")" />
 			</div>
 		</div>
 		<hr />
 		<div class="form-group">
-			<label class="control-label col-md-2">@Resources.your_name</label>
+			<label class="control-label col-md-2">@Resources.players</label>
 			<div class="col-md-10">
-				<input type="text" class="form-control" name="playerName" />
-			</div>
-		</div>
-		<hr />
-		<div class="form-group">
-			<label class="control-label col-md-2">@Resources.other_players</label>
-			<div class="col-md-10">
-				<ul id="players-list">
-					<li>@Resources.no_other_players_yet</li>
+				<ul id="players-list" class="list-group">
 				</ul>
 			</div>
 		</div>
+		@if (Model.IsCreator)
+		{
+			<div class="form-group">
+				<div class="col-md-offset-2 col-md-10">
+					<input type="submit" value="@Resources.start_the_game" class="btn btn-default" />
+				</div>
+			</div>
+		}
 	</div>
 }
 
+@section scripts{
+	<script type="text/javascript">
+		function loadPlayers() {
+			$.post('@Url.Action("GetCurrentPlayers", "Game", new { key = Model.Key })', function (result) {
+				$("ul").empty();
+				$.each(result, function (i, item) {
+					$('#players-list').append('<li class="list-group-item">' + item + '</li>');
+				});
+			});
+		}
+
+		loadPlayers();
+
+		var intervalID = window.setInterval(loadPlayers, 3000);
+	</script>
+}
