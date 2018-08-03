@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LittleGoatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerieId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Ended" Type="bit" Nullable="false" />
+          <Property Name="CardGiverId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LittleGoatCallerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="NextToPlayId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GameCard">
+          <Key>
+            <PropertyRef Name="Symbol" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="Symbol" Type="int" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Position" Type="int" />
+          <Property Name="IsCover" Type="bit" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GameId" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Points" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="Started" Type="bit" Nullable="false" />
+          <Property Name="Ended" Type="bit" Nullable="false" />
+          <Property Name="CreatorId" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SeriePlayers">
+          <Key>
+            <PropertyRef Name="SerieId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="SerieId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Position" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Game__CardGiverI__2E1BDC42">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CardGiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__LittleGoat__2D27B809">
+          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="LittleGoatCallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__NextToPlay__2F10007B">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="NextToPlayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__SerieId__2C3393D0">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
+          <End Role="Game" Type="Self.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GameCard__GameId__35BCFE0A">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="GameCard" Type="Self.GameCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameCard">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GameCard__Player__36B12243">
+          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
+          <End Role="GameCard" Type="Self.GameCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__GameId__31EC6D26">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__PlayerId__32E0915F">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Serie__CreatorId__25869641">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Serie" Type="Self.Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SeriePlay__Playe__29572725">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="SeriePlayers" Type="Self.SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SeriePlay__Serie__286302EC">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
+          <End Role="SeriePlayers" Type="Self.SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LittleGoatModelStoreContainer">
+          <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GameCard" EntityType="Self.GameCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Serie" EntityType="Self.Serie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SeriePlayers" EntityType="Self.SeriePlayers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Game__CardGiverI__2E1BDC42" Association="Self.FK__Game__CardGiverI__2E1BDC42">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__LittleGoat__2D27B809" Association="Self.FK__Game__LittleGoat__2D27B809">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__NextToPlay__2F10007B" Association="Self.FK__Game__NextToPlay__2F10007B">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__SerieId__2C3393D0" Association="Self.FK__Game__SerieId__2C3393D0">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GameCard__GameId__35BCFE0A" Association="Self.FK__GameCard__GameId__35BCFE0A">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="GameCard" EntitySet="GameCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GameCard__Player__36B12243" Association="Self.FK__GameCard__Player__36B12243">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="GameCard" EntitySet="GameCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__GameId__31EC6D26" Association="Self.FK__Score__GameId__31EC6D26">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__PlayerId__32E0915F" Association="Self.FK__Score__PlayerId__32E0915F">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Serie__CreatorId__25869641" Association="Self.FK__Serie__CreatorId__25869641">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Playe__29572725" Association="Self.FK__SeriePlay__Playe__29572725">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Serie__286302EC" Association="Self.FK__SeriePlay__Serie__286302EC">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LittleGoatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LittleGoatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Game" EntityType="LittleGoatModel.Game" />
+          <EntitySet Name="GameCard" EntityType="LittleGoatModel.GameCard" />
+          <EntitySet Name="Player" EntityType="LittleGoatModel.Player" />
+          <EntitySet Name="Score" EntityType="LittleGoatModel.Score" />
+          <EntitySet Name="Serie" EntityType="LittleGoatModel.Serie" />
+          <EntitySet Name="SeriePlayers" EntityType="LittleGoatModel.SeriePlayers" />
+          <AssociationSet Name="FK__Game__CardGiverI__2E1BDC42" Association="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__LittleGoat__2D27B809" Association="LittleGoatModel.FK__Game__LittleGoat__2D27B809">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__NextToPlay__2F10007B" Association="LittleGoatModel.FK__Game__NextToPlay__2F10007B">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Game__SerieId__2C3393D0" Association="LittleGoatModel.FK__Game__SerieId__2C3393D0">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="Game" EntitySet="Game" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GameCard__GameId__35BCFE0A" Association="LittleGoatModel.FK__GameCard__GameId__35BCFE0A">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="GameCard" EntitySet="GameCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__GameId__31EC6D26" Association="LittleGoatModel.FK__Score__GameId__31EC6D26">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GameCard__Player__36B12243" Association="LittleGoatModel.FK__GameCard__Player__36B12243">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="GameCard" EntitySet="GameCard" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Score__PlayerId__32E0915F" Association="LittleGoatModel.FK__Score__PlayerId__32E0915F">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Serie__CreatorId__25869641" Association="LittleGoatModel.FK__Serie__CreatorId__25869641">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Serie" EntitySet="Serie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Playe__29572725" Association="LittleGoatModel.FK__SeriePlay__Playe__29572725">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SeriePlay__Serie__286302EC" Association="LittleGoatModel.FK__SeriePlay__Serie__286302EC">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerieId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ended" Type="Boolean" Nullable="false" />
+          <Property Name="CardGiverId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LittleGoatCallerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NextToPlayId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42" FromRole="Game" ToRole="Player" />
+          <NavigationProperty Name="Player1" Relationship="LittleGoatModel.FK__Game__LittleGoat__2D27B809" FromRole="Game" ToRole="Player" />
+          <NavigationProperty Name="Player2" Relationship="LittleGoatModel.FK__Game__NextToPlay__2F10007B" FromRole="Game" ToRole="Player" />
+          <NavigationProperty Name="Serie" Relationship="LittleGoatModel.FK__Game__SerieId__2C3393D0" FromRole="Game" ToRole="Serie" />
+          <NavigationProperty Name="GameCard" Relationship="LittleGoatModel.FK__GameCard__GameId__35BCFE0A" FromRole="Game" ToRole="GameCard" />
+          <NavigationProperty Name="Score" Relationship="LittleGoatModel.FK__Score__GameId__31EC6D26" FromRole="Game" ToRole="Score" />
+        </EntityType>
+        <EntityType Name="GameCard">
+          <Key>
+            <PropertyRef Name="Symbol" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="GameId" />
+          </Key>
+          <Property Name="Symbol" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" />
+          <Property Name="IsCover" Type="Boolean" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Game" Relationship="LittleGoatModel.FK__GameCard__GameId__35BCFE0A" FromRole="GameCard" ToRole="Game" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__GameCard__Player__36B12243" FromRole="GameCard" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Game" Relationship="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42" FromRole="Player" ToRole="Game" />
+          <NavigationProperty Name="Game1" Relationship="LittleGoatModel.FK__Game__LittleGoat__2D27B809" FromRole="Player" ToRole="Game" />
+          <NavigationProperty Name="Game2" Relationship="LittleGoatModel.FK__Game__NextToPlay__2F10007B" FromRole="Player" ToRole="Game" />
+          <NavigationProperty Name="GameCard" Relationship="LittleGoatModel.FK__GameCard__Player__36B12243" FromRole="Player" ToRole="GameCard" />
+          <NavigationProperty Name="Score" Relationship="LittleGoatModel.FK__Score__PlayerId__32E0915F" FromRole="Player" ToRole="Score" />
+          <NavigationProperty Name="Serie" Relationship="LittleGoatModel.FK__Serie__CreatorId__25869641" FromRole="Player" ToRole="Serie" />
+          <NavigationProperty Name="SeriePlayers" Relationship="LittleGoatModel.FK__SeriePlay__Playe__29572725" FromRole="Player" ToRole="SeriePlayers" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GameId" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="LittleGoatModel.FK__Score__GameId__31EC6D26" FromRole="Score" ToRole="Game" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__Score__PlayerId__32E0915F" FromRole="Score" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="Serie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Started" Type="Boolean" Nullable="false" />
+          <Property Name="Ended" Type="Boolean" Nullable="false" />
+          <Property Name="CreatorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Game" Relationship="LittleGoatModel.FK__Game__SerieId__2C3393D0" FromRole="Serie" ToRole="Game" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__Serie__CreatorId__25869641" FromRole="Serie" ToRole="Player" />
+          <NavigationProperty Name="SeriePlayers" Relationship="LittleGoatModel.FK__SeriePlay__Serie__286302EC" FromRole="Serie" ToRole="SeriePlayers" />
+        </EntityType>
+        <EntityType Name="SeriePlayers">
+          <Key>
+            <PropertyRef Name="SerieId" />
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="SerieId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlayerId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__SeriePlay__Playe__29572725" FromRole="SeriePlayers" ToRole="Player" />
+          <NavigationProperty Name="Serie" Relationship="LittleGoatModel.FK__SeriePlay__Serie__286302EC" FromRole="SeriePlayers" ToRole="Serie" />
+        </EntityType>
+        <Association Name="FK__Game__CardGiverI__2E1BDC42">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="CardGiverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__LittleGoat__2D27B809">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="0..1" />
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="LittleGoatCallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__NextToPlay__2F10007B">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="NextToPlayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Game__SerieId__2C3393D0">
+          <End Type="LittleGoatModel.Serie" Role="Serie" Multiplicity="1" />
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GameCard__GameId__35BCFE0A">
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="LittleGoatModel.GameCard" Role="GameCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameCard">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__GameId__31EC6D26">
+          <End Type="LittleGoatModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="LittleGoatModel.Score" Role="Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="GameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GameCard__Player__36B12243">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="0..1" />
+          <End Type="LittleGoatModel.GameCard" Role="GameCard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GameCard">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Score__PlayerId__32E0915F">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="LittleGoatModel.Score" Role="Score" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Serie__CreatorId__25869641">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="LittleGoatModel.Serie" Role="Serie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Serie">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SeriePlay__Playe__29572725">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
+          <End Type="LittleGoatModel.SeriePlayers" Role="SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SeriePlay__Serie__286302EC">
+          <End Type="LittleGoatModel.Serie" Role="Serie" Multiplicity="1" />
+          <End Type="LittleGoatModel.SeriePlayers" Role="SeriePlayers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SeriePlayers">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LittleGoatModelStoreContainer" CdmEntityContainer="LittleGoatEntities">
+          <EntitySetMapping Name="Game">
+            <EntityTypeMapping TypeName="LittleGoatModel.Game">
+              <MappingFragment StoreEntitySet="Game">
+                <ScalarProperty Name="NextToPlayId" ColumnName="NextToPlayId" />
+                <ScalarProperty Name="LittleGoatCallerId" ColumnName="LittleGoatCallerId" />
+                <ScalarProperty Name="CardGiverId" ColumnName="CardGiverId" />
+                <ScalarProperty Name="Ended" ColumnName="Ended" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GameCard">
+            <EntityTypeMapping TypeName="LittleGoatModel.GameCard">
+              <MappingFragment StoreEntitySet="GameCard">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="IsCover" ColumnName="IsCover" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Player">
+            <EntityTypeMapping TypeName="LittleGoatModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Score">
+            <EntityTypeMapping TypeName="LittleGoatModel.Score">
+              <MappingFragment StoreEntitySet="Score">
+                <ScalarProperty Name="Points" ColumnName="Points" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="GameId" ColumnName="GameId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Serie">
+            <EntityTypeMapping TypeName="LittleGoatModel.Serie">
+              <MappingFragment StoreEntitySet="Serie">
+                <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+                <ScalarProperty Name="Ended" ColumnName="Ended" />
+                <ScalarProperty Name="Started" ColumnName="Started" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeriePlayers">
+            <EntityTypeMapping TypeName="LittleGoatModel.SeriePlayers">
+              <MappingFragment StoreEntitySet="SeriePlayers">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
