@@ -121,7 +121,7 @@
     <value>Choisissez un nom</value>
   </data>
   <data name="copy_to_clipboard" xml:space="preserve">
-    <value>Copier dans le presse-papier</value>
+    <value>Copier</value>
   </data>
   <data name="create_a_game_message" xml:space="preserve">
     <value>Créez une partie en cliquant sur le bouton ci-dessous, copiez-collez ensuite le lien et envoyez-le à vos ami·es !</value>
@@ -160,7 +160,7 @@
     <value>Pour commencer</value>
   </data>
   <data name="url_to_share" xml:space="preserve">
-    <value>URL à envoyer aux autres joueurs</value>
+    <value>URL à partager</value>
   </data>
   <data name="validate" xml:space="preserve">
     <value>Valider</value>

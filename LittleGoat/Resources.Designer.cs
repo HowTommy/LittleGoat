@@ -88,7 +88,7 @@ namespace LittleGoat {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Copier dans le presse-papier.
+        ///   Recherche une chaîne localisée semblable à Copier.
         /// </summary>
         public static string copy_to_clipboard {
             get {
@@ -250,7 +250,7 @@ namespace LittleGoat {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à URL à envoyer aux autres joueurs.
+        ///   Recherche une chaîne localisée semblable à URL à partager.
         /// </summary>
         public static string url_to_share {
             get {
