@@ -58,6 +58,16 @@
           <Property Name="Ended" Type="bit" Nullable="false" />
           <Property Name="CreatorId" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="SerieChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerieId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar" MaxLength="3000" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SeriePlayers">
           <Key>
             <PropertyRef Name="SerieId" />
@@ -175,6 +185,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SerieChat__Playe__4AB81AF0">
+          <End Role="Player" Type="Self.Player" Multiplicity="0..1" />
+          <End Role="SerieChat" Type="Self.SerieChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerieChat">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieChat__Serie__49C3F6B7">
+          <End Role="Serie" Type="Self.Serie" Multiplicity="1" />
+          <End Role="SerieChat" Type="Self.SerieChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerieChat">
+              <PropertyRef Name="SerieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SeriePlay__Playe__29572725">
           <End Role="Player" Type="Self.Player" Multiplicity="1" />
           <End Role="SeriePlayers" Type="Self.SeriePlayers" Multiplicity="*" />
@@ -205,6 +239,7 @@
           <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Serie" EntityType="Self.Serie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerieChat" EntityType="Self.SerieChat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeriePlayers" EntityType="Self.SeriePlayers" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Game__CardGiverI__2E1BDC42" Association="Self.FK__Game__CardGiverI__2E1BDC42">
             <End Role="Player" EntitySet="Player" />
@@ -242,6 +277,14 @@
             <End Role="Player" EntitySet="Player" />
             <End Role="Serie" EntitySet="Serie" />
           </AssociationSet>
+          <AssociationSet Name="FK__SerieChat__Playe__4AB81AF0" Association="Self.FK__SerieChat__Playe__4AB81AF0">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="SerieChat" EntitySet="SerieChat" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieChat__Serie__49C3F6B7" Association="Self.FK__SerieChat__Serie__49C3F6B7">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SerieChat" EntitySet="SerieChat" />
+          </AssociationSet>
           <AssociationSet Name="FK__SeriePlay__Playe__29572725" Association="Self.FK__SeriePlay__Playe__29572725">
             <End Role="Player" EntitySet="Player" />
             <End Role="SeriePlayers" EntitySet="SeriePlayers" />
@@ -261,6 +304,7 @@
           <EntitySet Name="Player" EntityType="LittleGoatModel.Player" />
           <EntitySet Name="Score" EntityType="LittleGoatModel.Score" />
           <EntitySet Name="Serie" EntityType="LittleGoatModel.Serie" />
+          <EntitySet Name="SerieChat" EntityType="LittleGoatModel.SerieChat" />
           <EntitySet Name="SeriePlayers" EntityType="LittleGoatModel.SeriePlayers" />
           <AssociationSet Name="FK__Game__CardGiverI__2E1BDC42" Association="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42">
             <End Role="Player" EntitySet="Player" />
@@ -298,9 +342,17 @@
             <End Role="Player" EntitySet="Player" />
             <End Role="Serie" EntitySet="Serie" />
           </AssociationSet>
+          <AssociationSet Name="FK__SerieChat__Playe__4AB81AF0" Association="LittleGoatModel.FK__SerieChat__Playe__4AB81AF0">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="SerieChat" EntitySet="SerieChat" />
+          </AssociationSet>
           <AssociationSet Name="FK__SeriePlay__Playe__29572725" Association="LittleGoatModel.FK__SeriePlay__Playe__29572725">
             <End Role="Player" EntitySet="Player" />
             <End Role="SeriePlayers" EntitySet="SeriePlayers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SerieChat__Serie__49C3F6B7" Association="LittleGoatModel.FK__SerieChat__Serie__49C3F6B7">
+            <End Role="Serie" EntitySet="Serie" />
+            <End Role="SerieChat" EntitySet="SerieChat" />
           </AssociationSet>
           <AssociationSet Name="FK__SeriePlay__Serie__286302EC" Association="LittleGoatModel.FK__SeriePlay__Serie__286302EC">
             <End Role="Serie" EntitySet="Serie" />
@@ -354,6 +406,7 @@
           <NavigationProperty Name="GameCard" Relationship="LittleGoatModel.FK__GameCard__Player__36B12243" FromRole="Player" ToRole="GameCard" />
           <NavigationProperty Name="Score" Relationship="LittleGoatModel.FK__Score__PlayerId__32E0915F" FromRole="Player" ToRole="Score" />
           <NavigationProperty Name="Serie" Relationship="LittleGoatModel.FK__Serie__CreatorId__25869641" FromRole="Player" ToRole="Serie" />
+          <NavigationProperty Name="SerieChat" Relationship="LittleGoatModel.FK__SerieChat__Playe__4AB81AF0" FromRole="Player" ToRole="SerieChat" />
           <NavigationProperty Name="SeriePlayers" Relationship="LittleGoatModel.FK__SeriePlay__Playe__29572725" FromRole="Player" ToRole="SeriePlayers" />
         </EntityType>
         <EntityType Name="Score">
@@ -378,7 +431,20 @@
           <Property Name="CreatorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Game" Relationship="LittleGoatModel.FK__Game__SerieId__2C3393D0" FromRole="Serie" ToRole="Game" />
           <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__Serie__CreatorId__25869641" FromRole="Serie" ToRole="Player" />
+          <NavigationProperty Name="SerieChat" Relationship="LittleGoatModel.FK__SerieChat__Serie__49C3F6B7" FromRole="Serie" ToRole="SerieChat" />
           <NavigationProperty Name="SeriePlayers" Relationship="LittleGoatModel.FK__SeriePlay__Serie__286302EC" FromRole="Serie" ToRole="SeriePlayers" />
+        </EntityType>
+        <EntityType Name="SerieChat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerieId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlayerId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Player" Relationship="LittleGoatModel.FK__SerieChat__Playe__4AB81AF0" FromRole="SerieChat" ToRole="Player" />
+          <NavigationProperty Name="Serie" Relationship="LittleGoatModel.FK__SerieChat__Serie__49C3F6B7" FromRole="SerieChat" ToRole="Serie" />
         </EntityType>
         <EntityType Name="SeriePlayers">
           <Key>
@@ -499,6 +565,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SerieChat__Playe__4AB81AF0">
+          <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="0..1" />
+          <End Type="LittleGoatModel.SerieChat" Role="SerieChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerieChat">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SeriePlay__Playe__29572725">
           <End Type="LittleGoatModel.Player" Role="Player" Multiplicity="1" />
           <End Type="LittleGoatModel.SeriePlayers" Role="SeriePlayers" Multiplicity="*" />
@@ -508,6 +586,18 @@
             </Principal>
             <Dependent Role="SeriePlayers">
               <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SerieChat__Serie__49C3F6B7">
+          <End Type="LittleGoatModel.Serie" Role="Serie" Multiplicity="1" />
+          <End Type="LittleGoatModel.SerieChat" Role="SerieChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Serie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerieChat">
+              <PropertyRef Name="SerieId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -581,6 +671,17 @@
                 <ScalarProperty Name="Ended" ColumnName="Ended" />
                 <ScalarProperty Name="Started" ColumnName="Started" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerieChat">
+            <EntityTypeMapping TypeName="LittleGoatModel.SerieChat">
+              <MappingFragment StoreEntitySet="SerieChat">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="SerieId" ColumnName="SerieId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

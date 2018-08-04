@@ -23,6 +23,7 @@ namespace LittleGoat.DataAccess
             this.GameCard = new HashSet<GameCard>();
             this.Score = new HashSet<Score>();
             this.Serie = new HashSet<Serie>();
+            this.SerieChat = new HashSet<SerieChat>();
             this.SeriePlayers = new HashSet<SeriePlayers>();
         }
     
@@ -42,6 +43,8 @@ namespace LittleGoat.DataAccess
         public virtual ICollection<Score> Score { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Serie> Serie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SerieChat> SerieChat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SeriePlayers> SeriePlayers { get; set; }
     }

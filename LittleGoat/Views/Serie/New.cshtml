@@ -12,54 +12,50 @@
 	<p style="color: red;">@ViewBag.ErrorMessage</p>
 }
 
-@using (Html.BeginForm("Launch", "Game", new { key = Model.Key }, FormMethod.Post, null))
-{
-	@Html.AntiForgeryToken()
+<div class="row">
+	@using (Html.BeginForm("Launch", "Game", new { key = Model.Key }, FormMethod.Post, new { @class = "col-md-6" }))
+	{
+		@Html.AntiForgeryToken()
 
-	<hr />
-	<div class="form-horizontal">
-		<div class="form-group">
-			<label class="control-label col-md-2">@Resources.url_to_share</label>
-			<div class="col-md-10">
-				<input type="text" class="form-control inlineblock" name="url" value="@Url.Action("New", "Serie", new { key = Model.Key }, "http")" id="url-to-share" />
-				<input type="button" value="@Resources.copy_to_clipboard" class="btn btn-default inlineblock" onclick="copyToClipboard()"/>
-			</div>
-		</div>
 		<hr />
-		<div class="form-group">
-			<label class="control-label col-md-2">@Resources.players</label>
-			<div class="col-md-10">
-				<ul id="players-list" class="list-group"></ul>
-			</div>
-		</div>
-		@if (Model.IsCreator)
-		{
+		<div class="form-horizontal">
 			<div class="form-group">
-				<div class="col-md-offset-2 col-md-10">
-					<input type="submit" value="@Resources.start_the_game" class="btn btn-default" />
+				<label class="control-label col-md-2">@Resources.url_to_share</label>
+				<div class="col-md-8">
+					<input type="text" class="form-control inlineblock" name="url" value="@Url.Action("New", "Serie", new { key = Model.Key }, "http")" id="url-to-share" />
+					<input type="button" id="bt-copy-clipboard" value="@Resources.copy_to_clipboard" class="btn btn-default inlineblock" onclick="copyToClipboard()" />
 				</div>
 			</div>
-		}
+			<div class="form-group">
+				<label class="control-label col-md-2">@Resources.players</label>
+				<div class="col-md-8">
+					<ul id="players-list" class="list-group">
+						@foreach (var playerName in Model.Players)
+						{
+							<li class="list-group-item text-light">@playerName</li>
+						}
+					</ul>
+				</div>
+			</div>
+			@if (Model.IsCreator)
+			{
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10" style="margin-bottom : 25px;">
+						<input type="submit" value="@Resources.start_the_game" class="btn btn-success" />
+					</div>
+				</div>
+			}
+		</div>
+	}
+
+	<div class="col-md-4">
+		@Html.Partial("_Chat", new LittleGoat.ViewModels.ChatViewModel() { SerieId = Model.Key, ChatMessages = Model.LastChatMessages })
 	</div>
-}
+</div>
 
 @section scripts{
+	<script src="~/signalr/hubs" type="text/javascript"></script>
 	<script type="text/javascript">
-		function loadPlayers() {
-			$.post('@Url.Action("GetCurrentPlayers", "Serie", new { key = Model.Key })', function (result) {
-				$("ul").empty();
-				$.each(result.players, function (i, item) {
-					$('#players-list').append('<li class="list-group-item">' + item + '</li>');
-				});
-				if (result.stopCalls) {
-					clearInterval(intervalID);
-				}
-				if (result.gameStarted) {
-					document.location = '@Url.Action("Play", "Game", new { key = Model.Key })';
-				}
-			});
-		}
-
 		function copyToClipboard() {
 			var copyText = document.getElementById("url-to-share");
 			copyText.focus();
@@ -67,8 +63,77 @@
 			document.execCommand("copy");
 		}
 
-		loadPlayers();
+		function scrollChatToBottom() {
+			var panel = $('.panel-body');
+			var height = panel[0].scrollHeight;
+			panel.scrollTop(height);
+		}
 
-		var intervalID = window.setInterval(loadPlayers, 2500);
+		$(function () {
+			var hub = $.connection.serieHub;
+
+			hub.client.newMessageReceived = function (message) {
+				var containsPlayer = false;
+				$('.list-group-item').each(function () {
+					if ($(this).text() == message) {
+						containsPlayer = true;
+					}
+				});
+				if (!containsPlayer) {
+					$('#players-list').append('<li class="list-group-item">' + message + '</li>');
+				}
+			};
+
+			hub.client.newChatMessageReceived = function (id, date, playerName, pictureUrl, message) {
+				var align = 'left';
+				var lastMessage = $('.chat li:last').last();
+				if (lastMessage && lastMessage.hasClass('left-chat-message')) {
+					align = 'right';
+				}
+				var newMessage = `<li class="`+align+`-chat-message clearfix" data-id="`+id+`">
+									<span class="chat-img">
+										<img src="`+ pictureUrl+`" alt="User Avatar" class="img-circle" />
+									</span>
+									<div class="chat-body clearfix">
+										<div class="header">
+											<strong class="primary-font">`+playerName+`</strong> 
+											<small class="text-muted">
+												<span class="glyphicon glyphicon-time"></span>`+date+`
+											</small>
+										</div>
+										<p>`+ message+`</p>
+									</div>
+								</li>`;
+				$('.chat').append(newMessage);
+
+				scrollChatToBottom();
+			};
+
+			hub.client.newChatMessageUpdated = function (id, message) {
+				var lastMessage = $('li[data-id=' + id + ']');
+				if (lastMessage) {
+					$('li[data-id=' + id + '] > div > p').html(message);
+					scrollChatToBottom();
+				}
+			};
+
+			$("#btn-input").on('keyup', function (e) {
+				if (e.keyCode == 13) {
+					$('#btn-chat').click();
+				}
+			});
+
+			$.connection.hub.start().done(function () {
+				hub.server.joinGroup('@Model.Key');
+				hub.server.broadcastToGroup('@Model.Key', '@Model.CurrentPlayerName');
+
+				$('#btn-chat').click(function (e) {
+					hub.server.broadcastChatMessageToGroup('@Model.Key', $('#btn-input').val());
+					$('#btn-input').val('');
+				});
+			});
+
+			setTimeout(scrollChatToBottom, 500);
+		});
 	</script>
 }

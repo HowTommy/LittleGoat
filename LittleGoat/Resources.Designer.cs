@@ -61,11 +61,29 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Chat.
+        /// </summary>
+        public static string chat {
+            get {
+                return ResourceManager.GetString("chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Choisissez un nom.
         /// </summary>
         public static string choose_name {
             get {
                 return ResourceManager.GetString("choose_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cliquez ici pour voir tout l&apos;historique des messages.
+        /// </summary>
+        public static string click_to_see_older_messages {
+            get {
+                return ResourceManager.GetString("click_to_see_older_messages", resourceCulture);
             }
         }
         
@@ -93,6 +111,15 @@ namespace LittleGoat {
         public static string create_game {
             get {
                 return ResourceManager.GetString("create_game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;email n&apos;est pas obligatoire, mais il servira si jamais vous changez de téléphone/PC, pour retrouver votre nom et vos scores.
+        /// </summary>
+        public static string email_not_mandatory {
+            get {
+                return ResourceManager.GetString("email_not_mandatory", resourceCulture);
             }
         }
         
@@ -169,6 +196,15 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Envoyer.
+        /// </summary>
+        public static string send {
+            get {
+                return ResourceManager.GetString("send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Commencer une nouvelle partie.
         /// </summary>
         public static string start_new_serie {
@@ -201,6 +237,15 @@ namespace LittleGoat {
         public static string to_start {
             get {
                 return ResourceManager.GetString("to_start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Tapez votre message ici.
+        /// </summary>
+        public static string type_message_here {
+            get {
+                return ResourceManager.GetString("type_message_here", resourceCulture);
             }
         }
         

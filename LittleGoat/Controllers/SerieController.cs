@@ -2,13 +2,14 @@
 {
     using LittleGoat.DataAccess;
     using LittleGoat.Filter;
+    using LittleGoat.Models;
     using LittleGoat.ViewModels;
     using System;
     using System.Linq;
     using System.Web.Mvc;
 
     public class SerieController : BaseController
-    {        
+    {
         public ActionResult Create()
         {
             string playerId = Request.Cookies["playerId"]?.Value;
@@ -56,30 +57,23 @@
 
                 entities.SaveChanges();
 
-                return View(new NewSerieViewModel() { Key = key, IsCreator = serie.CreatorId == playerId });
-            }
-        }
+                var players = entities.SeriePlayers.Where(p => p.SerieId == key).Select(p => p.Player.Name).ToList();
 
-        [HttpPost]
-        public ActionResult GetCurrentPlayers(string key)
-        {
-            try
-            {
-                using (LittleGoatEntities entities = new LittleGoatEntities())
+                var lastChatMessages = entities.SerieChat
+                    .Where(p => p.SerieId == key)
+                    .OrderByDescending(p => p.Id)
+                    .Select(p => new ChatMessage() { Id = p.Id, Date = p.Date, Message = p.Message, PlayerId = p.PlayerId, PlayerName = p.Player.Name })
+                    .Take(30)
+                    .OrderBy(p => p.Date)
+                    .ToList();
+
+                return View(new NewSerieViewModel()
                 {
-                    var serie = entities.Serie.FirstOrDefault(p => p.Id == key);
-                    var players = serie.SeriePlayers.Select(p => p.Player.Name).ToArray();
-                    var gameStarted = serie.Started;
-                    return Json(new { players, gameStarted, stopCalls = false });
-                }
-            }
-            catch
-            {
-                return Json(new
-                {
-                    players = Enumerable.Empty<Player>().ToArray(),
-                    gameStarted = false,
-                    stopCalls = true
+                    Key = key,
+                    IsCreator = serie.CreatorId == playerId,
+                    Players = players,
+                    CurrentPlayerName = player.Name,
+                    LastChatMessages = lastChatMessages
                 });
             }
         }

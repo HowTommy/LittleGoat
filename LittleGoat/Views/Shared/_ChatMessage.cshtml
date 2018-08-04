@@ -1,0 +1,16 @@
+﻿@model LittleGoat.ViewModels.ChatMessageViewModel
+
+<li class="@Model.Align-chat-message clearfix" data-id="@Model.Id">
+	<span class="chat-img">
+		<img src="@Model.PictureUrl" alt="User Avatar" class="img-circle" />
+	</span>
+	<div class="chat-body clearfix">
+		<div class="header">
+			<strong class="primary-font">@Model.PlayerName</strong> 
+			<small class="text-muted">
+				<span class="glyphicon glyphicon-time"></span>@Model.Date
+			</small>
+		</div>
+		<p>@Html.Raw(Model.Message)</p>
+	</div>
+</li>
