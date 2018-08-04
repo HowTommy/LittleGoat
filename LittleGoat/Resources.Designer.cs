@@ -277,6 +277,15 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Vous ne pouvez lancer la partie, seul le créateur peut.
+        /// </summary>
+        public static string you_cant_start_the_game_only_creator {
+            get {
+                return ResourceManager.GetString("you_cant_start_the_game_only_creator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Votre email.
         /// </summary>
         public static string your_email {

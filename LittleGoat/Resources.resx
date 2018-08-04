@@ -195,4 +195,7 @@
   <data name="type_message_here" xml:space="preserve">
     <value>Tapez votre message ici</value>
   </data>
+  <data name="you_cant_start_the_game_only_creator" xml:space="preserve">
+    <value>Vous ne pouvez lancer la partie, seul le créateur peut</value>
+  </data>
 </root>

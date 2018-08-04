@@ -13,9 +13,11 @@
 }
 
 <div class="row">
-	@using (Html.BeginForm("Launch", "Game", new { key = Model.Key }, FormMethod.Post, new { @class = "col-md-6" }))
+	@using (Html.BeginForm("New", "Serie", FormMethod.Post, new { @class = "col-md-6" }))
 	{
 		@Html.AntiForgeryToken()
+
+		@Html.HiddenFor(model => model.Key)
 
 		<hr />
 		<div class="form-horizontal">
