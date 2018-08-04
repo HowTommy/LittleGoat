@@ -215,7 +215,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
-    <Compile Include="Hubs\SeriePlayersHub.cs" />
+    <Compile Include="Hubs\SerieHub.cs" />
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\CardColor.cs" />
     <Compile Include="Models\Cards.cs" />

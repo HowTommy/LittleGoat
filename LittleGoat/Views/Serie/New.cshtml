@@ -119,6 +119,10 @@
 				}
 			};
 
+			hub.client.startGame = function () {
+				document.location.href = '@Url.Action("Play", "Game", new { key = Model.Key })';
+			};
+
 			$("#btn-input").on('keyup', function (e) {
 				if (e.keyCode == 13) {
 					$('#btn-chat').click();

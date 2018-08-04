@@ -32,9 +32,9 @@
                 cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Eight, Score = 8, FileName = "8_of_clubs.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Nine, Score = 9, FileName = "9_of_clubs.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Ten, Score = 10, FileName = "10_of_clubs.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Jack, Score = 11, FileName = "jack_of_clubs.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Queen, Score = 12, FileName = "queen_of_clubs.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.King, Score = 13, FileName = "king_of_clubs.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Jack, Score = 11, FileName = "jack_of_clubs2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.Queen, Score = 12, FileName = "queen_of_clubs2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Clubs, Value = CardValue.King, Score = 13, FileName = "king_of_clubs2.jpg" });
 
                 cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Ace, Score = -1, FileName = "ace_of_spades.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Two, Score = 2, FileName = "2_of_spades.jpg" });
@@ -46,9 +46,9 @@
                 cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Eight, Score = 8, FileName = "8_of_spades.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Nine, Score = 9, FileName = "9_of_spades.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Ten, Score = 10, FileName = "10_of_spades.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Jack, Score = 11, FileName = "jack_of_spades.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Queen, Score = 12, FileName = "queen_of_spades.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.King, Score = 13, FileName = "king_of_spades.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Jack, Score = 11, FileName = "jack_of_spades2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.Queen, Score = 12, FileName = "queen_of_spades2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Spades, Value = CardValue.King, Score = 13, FileName = "king_of_spades2.jpg" });
 
                 cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Ace, Score = -1, FileName = "ace_of_hearts.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Two, Score = 2, FileName = "2_of_hearts.jpg" });
@@ -60,9 +60,9 @@
                 cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Eight, Score = 8, FileName = "8_of_hearts.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Nine, Score = 9, FileName = "9_of_hearts.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Ten, Score = 10, FileName = "10_of_hearts.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Jack, Score = 11, FileName = "jack_of_hearts.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Queen, Score = 12, FileName = "queen_of_hearts.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.King, Score = 0, FileName = "king_of_hearts.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Jack, Score = 11, FileName = "jack_of_hearts2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.Queen, Score = 12, FileName = "queen_of_hearts2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Hearts, Value = CardValue.King, Score = 0, FileName = "king_of_hearts2.jpg" });
 
                 cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Ace, Score = -1, FileName = "ace_of_diamonds.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Two, Score = 2, FileName = "2_of_diamonds.jpg" });
@@ -74,9 +74,9 @@
                 cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Eight, Score = 8, FileName = "8_of_diamonds.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Nine, Score = 9, FileName = "9_of_diamonds.jpg" });
                 cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Ten, Score = 10, FileName = "10_of_diamonds.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Jack, Score = 11, FileName = "jack_of_diamonds.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Queen, Score = 12, FileName = "queen_of_diamonds.jpg" });
-                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.King, Score = 0, FileName = "king_of_diamonds.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Jack, Score = 11, FileName = "jack_of_diamonds2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.Queen, Score = 12, FileName = "queen_of_diamonds2.jpg" });
+                cards.Add(new Card() { Symbol = CardSymbol.Diamonds, Value = CardValue.King, Score = 0, FileName = "king_of_diamonds2.jpg" });
 
                 var gameCards = new Cards(cards);
                 return gameCards;

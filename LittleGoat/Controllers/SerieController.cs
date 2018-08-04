@@ -2,6 +2,7 @@
 {
     using LittleGoat.DataAccess;
     using LittleGoat.Filter;
+    using LittleGoat.Hubs;
     using LittleGoat.Models;
     using LittleGoat.ViewModels;
     using System;
@@ -91,6 +92,7 @@
         {
             var playerId = GetPlayerId();
             Random r = new Random();
+
             using (LittleGoatEntities entities = new LittleGoatEntities())
             {
                 var serie = entities.Serie.Single(p => p.Id == model.Key);
@@ -161,6 +163,8 @@
                 }
                 entities.SaveChanges();
             }
+
+            SerieHub.StartGame(model.Key);
 
             return RedirectToAction("Play", "Game", new { key = model.Key });
         }

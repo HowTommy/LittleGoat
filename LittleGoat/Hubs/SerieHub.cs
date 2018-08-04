@@ -61,5 +61,11 @@
                 }
             }
         }
+
+        public static void StartGame(string key)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<SerieHub>();
+            context.Clients.Group(key).startGame();
+        }
     }
 }
