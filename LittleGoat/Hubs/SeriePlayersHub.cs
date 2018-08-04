@@ -2,14 +2,23 @@
 {
     using Microsoft.AspNet.SignalR;
     using Microsoft.AspNet.SignalR.Hubs;
-    using Newtonsoft.Json;
 
     [HubName("seriePlayersHub")]
     public class SeriePlayersHub : Hub
     {
-        public void BroadcastToAll(string message)
+        public void JoinGroup(string group)
         {
-            Clients.All.newMessageReceived(message);
+            Groups.Add(Context.ConnectionId, group);
+        }
+
+        public void QuitGroup(string group)
+        {
+            Groups.Remove(Context.ConnectionId, group);
+        }
+
+        public void BroadcastToGroup(string group, string message)
+        {
+            Clients.Group(group).newMessageReceived(message);
         }
     }
 }
