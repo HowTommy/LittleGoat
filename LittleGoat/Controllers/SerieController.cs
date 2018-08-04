@@ -168,5 +168,25 @@
 
             return RedirectToAction("Play", "Game", new { key = model.Key });
         }
+
+        [IsAuthenticated]
+        public ActionResult JoinLastGame()
+        {
+            var playerId = GetPlayerId();
+
+            using (LittleGoatEntities entities = new LittleGoatEntities())
+            {
+                var seriePlayers = entities.SeriePlayers.Where(p => p.PlayerId == playerId)?.Select(p => p.Serie);
+                var games = seriePlayers?.SelectMany(p => p.Game)?.ToList();
+
+                var lastGame = games?.OrderByDescending(p => p.CreationDate)?.FirstOrDefault();
+                if(lastGame == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("Play", "Game", new { key = lastGame.SerieId });
+            }
+        }
     }
 }

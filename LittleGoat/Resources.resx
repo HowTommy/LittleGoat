@@ -198,4 +198,10 @@
   <data name="you_cant_start_the_game_only_creator" xml:space="preserve">
     <value>Vous ne pouvez lancer la partie, seul le créateur peut</value>
   </data>
+  <data name="home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="join_last_game" xml:space="preserve">
+    <value>Reprendre la dernière partie</value>
+  </data>
 </root>

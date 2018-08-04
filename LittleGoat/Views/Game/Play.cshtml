@@ -5,38 +5,52 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-	<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
+<div class="row" style="margin-top: 5px;">
+	<div class="col-md-6 col-md-push-6">
+		@Html.Partial("_Chat", new LittleGoat.ViewModels.ChatViewModel() { SerieId = Model.SerieId, ChatMessages = Model.LastChatMessages, Collapsed = true })
+	</div>
+	<div class="col-md-6 col-md-pull-6">
+		<div>
+			<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
+		</div>
+
+		@if (Model.CardFromDeck != null)
+		{
+			<hr />
+
+			<div>
+				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card card-from-deck" style="display: none;" />
+			</div>
+		}
+
+		<hr />
+
+		@if (Model.FirstTwoCards.Any())
+		{
+			foreach (var card in Model.FirstTwoCards)
+			{
+				<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card first-two" />
+			}
+		}
+		@for (int i = 0; i < 4 - Model.FirstTwoCards.Count; i++)
+		{
+			<img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card" />
+		}
+	</div>
 </div>
 
-@if (Model.CardFromDeck != null)
-{
-	<hr />
-
-	<div>
-		<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card card-from-deck" style="display: none;" />
-	</div>
-}
-
-<hr />
-
-@if (Model.FirstTwoCards.Any())
-{
-	foreach (var card in Model.FirstTwoCards)
-	{
-		<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card first-two" />
-	}
-}
-@for (int i = 0; i < 4 - Model.FirstTwoCards.Count; i++)
-{
-	<img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card" />
-}
-
 @section scripts{
+	<script src="~/signalr/hubs" type="text/javascript"></script>
 	<script>
 		function hideFirstTwoCards() {
 			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
 			$('.card-from-deck').show();
+		}
+
+		function scrollChatToBottom() {
+			var panel = $('.panel-body');
+			var height = panel[0].scrollHeight;
+			panel.scrollTop(height);
 		}
 
 	@if (Model.FirstTwoCards.Any())
@@ -48,5 +62,69 @@
 		@:$('.card-from-deck').show();
 	}
 
+		$(function () {
+			var hub = $.connection.serieHub;
+
+			hub.client.newChatMessageReceived = function (id, date, playerName, pictureUrl, message) {
+				var align = 'left';
+				var lastMessage = $('.chat li:last').last();
+				if (lastMessage && lastMessage.hasClass('left-chat-message')) {
+					align = 'right';
+				}
+				var newMessage = `<li class="`+align+`-chat-message clearfix" data-id="`+id+`">
+									<span class="chat-img">
+										<img src="`+ pictureUrl+`" alt="User Avatar" class="img-circle" />
+									</span>
+									<div class="chat-body clearfix">
+										<div class="header">
+											<strong class="primary-font">`+playerName+`</strong>
+											<small class="text-muted">
+												<span class="glyphicon glyphicon-time"></span>`+date+`
+											</small>
+										</div>
+										<p>`+ message+`</p>
+									</div>
+								</li>`;
+				$('.chat').append(newMessage);
+
+				scrollChatToBottom();
+			};
+
+			hub.client.newChatMessageUpdated = function (id, message) {
+				var lastMessage = $('li[data-id=' + id + ']');
+				if (lastMessage) {
+					$('li[data-id=' + id + '] > div > p').html(message);
+					scrollChatToBottom();
+				}
+			};
+
+			$("#btn-input").on('keyup', function (e) {
+				if (e.keyCode == 13) {
+					$('#btn-chat').click();
+				}
+			});
+
+			$.connection.hub.start().done(function () {
+				hub.server.joinGroup('@Model.SerieId');
+
+				$('#btn-chat').click(function (e) {
+					hub.server.broadcastChatMessageToGroup('@Model.SerieId', $('#btn-input').val());
+					$('#btn-input').val('');
+				});
+			});
+
+			setTimeout(scrollChatToBottom, 500);
+
+			var windowWidth;
+			if (window.outerHeight) {
+				windowWidth = window.outerWidth;
+			}
+			else {
+				windowWidth = document.body.clientWidth;
+			}
+			if (windowWidth > 768) {
+				$('#collapseOne').removeClass('collapse');
+			}
+		});
 	</script>
 }

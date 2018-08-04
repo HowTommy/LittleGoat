@@ -124,6 +124,15 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Accueil.
+        /// </summary>
+        public static string home {
+            get {
+                return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à En jeu.
         /// </summary>
         public static string in_game {
@@ -138,6 +147,15 @@ namespace LittleGoat {
         public static string invalid_email {
             get {
                 return ResourceManager.GetString("invalid_email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Reprendre la dernière partie.
+        /// </summary>
+        public static string join_last_game {
+            get {
+                return ResourceManager.GetString("join_last_game", resourceCulture);
             }
         }
         

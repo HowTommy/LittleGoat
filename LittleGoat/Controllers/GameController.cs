@@ -19,11 +19,24 @@
             var playerId = GetPlayerId();
 
             var model = new PlayViewModel();
+            model.SerieId = key;
 
             model.FirstTwoCards = new List<GameCard>();
 
             using (LittleGoatEntities entities = new LittleGoatEntities())
             {
+                var serie = entities.Serie.Single(p => p.Id == key);
+                if(!serie.Started)
+                {
+                    return RedirectToAction("New", "Serie", new { key });
+                }
+
+                var currentPlayer = serie.SeriePlayers.FirstOrDefault(p => p.PlayerId == playerId);
+                if(currentPlayer == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 var game = entities.Game.Single(p => p.SerieId == key && p.Ended == false);
 
                 model.DateStopShowFirstTwoCards = game.CreationDate.AddSeconds(NB_SECONDS_TO_SHOW_FIRST_TWO_CARDS);
@@ -40,6 +53,14 @@
                         .OrderBy(p => p.Position)
                         .FirstOrDefault();
                 }
+
+                model.LastChatMessages = entities.SerieChat
+                    .Where(p => p.SerieId == key)
+                    .OrderByDescending(p => p.Id)
+                    .Select(p => new ChatMessage() { Id = p.Id, Date = p.Date, Message = p.Message, PlayerId = p.PlayerId, PlayerName = p.Player.Name })
+                    .Take(30)
+                    .OrderBy(p => p.Date)
+                    .ToList();
             }
 
             return View(model);

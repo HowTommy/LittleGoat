@@ -5,8 +5,13 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<span class="glyphicon glyphicon-comment"></span> @Resources.chat
+			<div class="btn-group pull-right">
+				<a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+			</div>
 		</div>
-		<div class="panel-collapse">
+		<div class="panel-collapse @(Model.Collapsed ? "collapse" : "")" id="collapseOne">
 			<div class="panel-body">
 				<ul class="chat">
 					@if (Model.ChatMessages.Count == 30)
