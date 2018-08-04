@@ -36,3 +36,7 @@ textarea {
 	max-height: 180px;
 	max-width: 25%;
 }
+
+#bt-copy-clipboard {
+	margin-top: 5px;
+}

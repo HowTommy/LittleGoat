@@ -177,7 +177,22 @@
   <data name="name_already_used" xml:space="preserve">
     <value>Ce nom est déjà utilisé</value>
   </data>
+  <data name="email_not_mandatory" xml:space="preserve">
+    <value>L'email n'est pas obligatoire, mais il servira si jamais vous changez de téléphone/PC, pour retrouver votre nom et vos scores</value>
+  </data>
   <data name="your_email" xml:space="preserve">
     <value>Votre email</value>
+  </data>
+  <data name="chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="click_to_see_older_messages" xml:space="preserve">
+    <value>Cliquez ici pour voir tout l'historique des messages</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="type_message_here" xml:space="preserve">
+    <value>Tapez votre message ici</value>
   </data>
 </root>

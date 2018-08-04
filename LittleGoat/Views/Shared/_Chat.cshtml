@@ -1,0 +1,35 @@
+﻿@model LittleGoat.ViewModels.ChatViewModel
+@{ string align = "right"; }
+
+<div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-comment"></span> @Resources.chat
+		</div>
+		<div class="panel-collapse">
+			<div class="panel-body">
+				<ul class="chat">
+					@if (Model.ChatMessages.Count == 30)
+					{
+						<li><a href="@Url.Action("AllChatMessages", "Serie", new { key = Model.SerieId })">@Resources.click_to_see_older_messages</a></li>
+					}
+					@foreach (var chatMessage in Model.ChatMessages)
+					{
+						align = (align == "left" ? "right" : "left");
+						Html.RenderPartial("_ChatMessage", Html.MapChatMessageInChatMessageViewModel(chatMessage, align));
+					}
+				</ul>
+			</div>
+			<div class="panel-footer">
+				<div class="input-group">
+					<input id="btn-input" type="text" class="form-control input-sm" placeholder="@Resources.type_message_here" />
+					<span class="input-group-btn">
+						<button class="btn btn-success btn-sm" id="btn-chat">
+							@Resources.send
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
