@@ -22,14 +22,19 @@
 			<label class="control-label col-md-2">@Resources.url_to_share</label>
 			<div class="col-md-10">
 				<input type="text" class="form-control inlineblock" name="url" value="@Url.Action("New", "Serie", new { key = Model.Key }, "http")" id="url-to-share" />
-				<input type="button" value="@Resources.copy_to_clipboard" class="btn btn-default inlineblock" onclick="copyToClipboard()"/>
+				<input type="button" value="@Resources.copy_to_clipboard" class="btn btn-default inlineblock" onclick="copyToClipboard()" />
 			</div>
 		</div>
 		<hr />
 		<div class="form-group">
 			<label class="control-label col-md-2">@Resources.players</label>
 			<div class="col-md-10">
-				<ul id="players-list" class="list-group"></ul>
+				<ul id="players-list" class="list-group">
+					@foreach (var playerName in Model.Players)
+					{
+						<li class="list-group-item">@playerName</li>
+					}
+				</ul>
 			</div>
 		</div>
 		@if (Model.IsCreator)
@@ -44,8 +49,36 @@
 }
 
 @section scripts{
+	<script src="~/signalr/hubs" type="text/javascript"></script>
 	<script type="text/javascript">
-		function loadPlayers() {
+		function copyToClipboard() {
+			var copyText = document.getElementById("url-to-share");
+			copyText.focus();
+			copyText.select();
+			document.execCommand("copy");
+		}
+
+		$(function () {
+			var hub = $.connection.seriePlayersHub;
+
+			hub.client.newMessageReceived = function (message) {
+				var containsPlayer = false;
+				$('.list-group-item').each(function () {
+					if ($(this).text() == message) {
+						containsPlayer = true;
+					}
+				});
+				if (!containsPlayer) {
+					$('#players-list').append('<li class="list-group-item">' + message + '</li>');
+				}
+			};
+
+			$.connection.hub.start().done(function () {
+				hub.server.broadcastToAll('@Model.CurrentPlayerName');
+			});
+		});
+
+		@*function loadPlayers() {
 			$.post('@Url.Action("GetCurrentPlayers", "Serie", new { key = Model.Key })', function (result) {
 				$("ul").empty();
 				$.each(result.players, function (i, item) {
@@ -58,17 +91,6 @@
 					document.location = '@Url.Action("Play", "Game", new { key = Model.Key })';
 				}
 			});
-		}
-
-		function copyToClipboard() {
-			var copyText = document.getElementById("url-to-share");
-			copyText.focus();
-			copyText.select();
-			document.execCommand("copy");
-		}
-
-		loadPlayers();
-
-		var intervalID = window.setInterval(loadPlayers, 2500);
+		}*@
 	</script>
 }

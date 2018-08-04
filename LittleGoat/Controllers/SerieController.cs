@@ -2,7 +2,10 @@
 {
     using LittleGoat.DataAccess;
     using LittleGoat.Filter;
+    using LittleGoat.Hubs;
     using LittleGoat.ViewModels;
+    using Microsoft.AspNet.SignalR;
+    using Microsoft.AspNet.SignalR.Infrastructure;
     using System;
     using System.Linq;
     using System.Web.Mvc;
@@ -56,7 +59,9 @@
 
                 entities.SaveChanges();
 
-                return View(new NewSerieViewModel() { Key = key, IsCreator = serie.CreatorId == playerId });
+                var players = entities.SeriePlayers.Where(p => p.SerieId == key).Select(p => p.Player.Name).ToList();
+
+                return View(new NewSerieViewModel() { Key = key, IsCreator = serie.CreatorId == playerId, Players = players, CurrentPlayerName = player.Name });
             }
         }
 
