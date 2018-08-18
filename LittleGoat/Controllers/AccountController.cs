@@ -23,7 +23,7 @@
                 return View(model);
             }
 
-            if(!string.IsNullOrWhiteSpace(model.Email) && !IsValidEmail(model.Email))
+            if (!string.IsNullOrWhiteSpace(model.Email) && !IsValidEmail(model.Email))
             {
                 ViewBag.ErrorMessage = Resources.invalid_email;
                 return View(model);
@@ -34,6 +34,11 @@
                 if (entities.Player.Any(p => p.Name.ToLower() == model.Name.ToLower()))
                 {
                     ViewBag.ErrorMessage = Resources.name_already_used;
+                    return View(model);
+                }
+                else if (entities.Player.Any(p => p.Email.Trim().ToLowerInvariant() == model.Email.Trim().ToLowerInvariant()))
+                {
+                    ViewBag.ErrorMessage = Resources.email_already_used;
                     return View(model);
                 }
 

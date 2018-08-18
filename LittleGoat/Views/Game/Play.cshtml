@@ -19,7 +19,7 @@
 			<hr />
 
 			<div>
-				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card card-from-deck" style="display: none;" />
+				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="current-card" style="display: none;" />
 			</div>
 		}
 
@@ -44,7 +44,7 @@
 	<script>
 		function hideFirstTwoCards() {
 			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
-			$('.card-from-deck').show();
+			$('#currentcard').show();
 		}
 
 		function scrollChatToBottom() {
@@ -59,7 +59,7 @@
 	}
 	else
 	{
-		@:$('.card-from-deck').show();
+		@:$('#currentcard').show();
 	}
 
 		$(function () {
@@ -113,8 +113,6 @@
 				});
 			});
 
-			setTimeout(scrollChatToBottom, 500);
-
 			var windowWidth;
 			if (window.outerHeight) {
 				windowWidth = window.outerWidth;
@@ -125,6 +123,8 @@
 			if (windowWidth > 768) {
 				$('#collapseOne').removeClass('collapse');
 			}
+
+			setTimeout(scrollChatToBottom, 500);
 		});
 	</script>
 }

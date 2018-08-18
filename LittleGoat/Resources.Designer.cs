@@ -115,6 +115,15 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Cet email est déjà utilisé. S&apos;il s&apos;agit du votre, n&apos;hésitez pas à utiliser la fonction de récupération de compte..
+        /// </summary>
+        public static string email_already_used {
+            get {
+                return ResourceManager.GetString("email_already_used", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à L&apos;email n&apos;est pas obligatoire, mais il servira si jamais vous changez de téléphone/PC, pour retrouver votre nom et vos scores.
         /// </summary>
         public static string email_not_mandatory {
