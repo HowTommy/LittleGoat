@@ -40,3 +40,12 @@ textarea {
 #bt-copy-clipboard {
 	margin-top: 5px;
 }
+
+#chatPanel.chatPanel--red-messages > div {
+	border-color: red;
+}
+
+#chatPanel.chatPanel--red-messages > div > div {
+	border-color: red;
+	background-color: red;
+}

@@ -96,7 +96,16 @@
 					$('li[data-id=' + id + '] > div > p').html(message);
 					scrollChatToBottom();
 				}
+				if ($('#collapseOne').hasClass('collapse') && !$('#chatPanel').hasClass('chatPanel--red-messages')) {
+					$('#chatPanel').addClass('chatPanel--red-messages');
+				}
 			};
+
+			$('#collapseLink').click(function () {
+				if ($('#chatPanel').hasClass('chatPanel--red-messages')) {
+					$('#chatPanel').removeClass('chatPanel--red-messages');
+				}
+			});
 
 			$("#btn-input").on('keyup', function (e) {
 				if (e.keyCode == 13) {

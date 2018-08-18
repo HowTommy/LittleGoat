@@ -36,7 +36,7 @@
                     ViewBag.ErrorMessage = Resources.name_already_used;
                     return View(model);
                 }
-                else if (entities.Player.Any(p => p.Email.Trim().ToLowerInvariant() == model.Email.Trim().ToLowerInvariant()))
+                else if (!string.IsNullOrWhiteSpace(model.Email) && entities.Player.Any(p => p.Email.Trim().ToLowerInvariant() == model.Email.Trim().ToLowerInvariant()))
                 {
                     ViewBag.ErrorMessage = Resources.email_already_used;
                     return View(model);
