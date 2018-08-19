@@ -9,6 +9,13 @@
 	<div class="col-md-6 col-md-push-6">
 		@Html.Partial("_Chat", new LittleGoat.ViewModels.ChatViewModel() { SerieId = Model.SerieId, ChatMessages = Model.LastChatMessages, Collapsed = true })
 	</div>
+
+	<div class="col-md-6 col-md-pull-6">
+		<div id="nextExpectedAction">
+			@Resources.memorize_your_cards
+		</div>
+	</div>
+
 	<div class="col-md-6 col-md-pull-6">
 		<div>
 			<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
@@ -19,7 +26,7 @@
 			<hr />
 
 			<div>
-				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="current-card" style="display: none;" />
+				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="currentCard" style="display: none;" />
 			</div>
 		}
 
@@ -44,7 +51,8 @@
 	<script>
 		function hideFirstTwoCards() {
 			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
-			$('#currentcard').show();
+			$('#currentCard').show();
+			$('#nextExpectedAction').html('@Model.NextExpectedAction');
 		}
 
 		function scrollChatToBottom() {
@@ -59,7 +67,8 @@
 	}
 	else
 	{
-		@:$('#currentcard').show();
+		@:$('#currentCard').show();
+		@:$('#nextExpectedAction').html('@Model.NextExpectedAction');
 	}
 
 		$(function () {
@@ -88,6 +97,10 @@
 				$('.chat').append(newMessage);
 
 				scrollChatToBottom();
+
+				if ($('#collapseOne').hasClass('collapse') && !$('#chatPanel').hasClass('chatPanel--red-messages')) {
+					$('#chatPanel').addClass('chatPanel--red-messages');
+				}
 			};
 
 			hub.client.newChatMessageUpdated = function (id, message) {
@@ -95,11 +108,16 @@
 				if (lastMessage) {
 					$('li[data-id=' + id + '] > div > p').html(message);
 					scrollChatToBottom();
-				}
-				if ($('#collapseOne').hasClass('collapse') && !$('#chatPanel').hasClass('chatPanel--red-messages')) {
-					$('#chatPanel').addClass('chatPanel--red-messages');
+
+					if ($('#collapseOne').hasClass('collapse') && !$('#chatPanel').hasClass('chatPanel--red-messages')) {
+						$('#chatPanel').addClass('chatPanel--red-messages');
+					}
 				}
 			};
+
+			hub.client.nextExpectedAction = function (message) {
+				$('#nextExpectedAction').html(message);
+			}
 
 			$('#collapseLink').click(function () {
 				if ($('#chatPanel').hasClass('chatPanel--red-messages')) {
@@ -130,7 +148,7 @@
 				windowWidth = document.body.clientWidth;
 			}
 			if (windowWidth > 768) {
-				$('#collapseOne').removeClass('collapse');
+				$('#collapseLink').click();
 			}
 
 			setTimeout(scrollChatToBottom, 500);

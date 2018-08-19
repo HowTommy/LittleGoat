@@ -178,6 +178,15 @@ namespace LittleGoat {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Mémorisez vos cartes !.
+        /// </summary>
+        public static string memorize_your_cards {
+            get {
+                return ResourceManager.GetString("memorize_your_cards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Ce nom est déjà utilisé.
         /// </summary>
         public static string name_already_used {
@@ -192,6 +201,15 @@ namespace LittleGoat {
         public static string name_cant_be_empty {
             get {
                 return ResourceManager.GetString("name_cant_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à A {0} de jouer !.
+        /// </summary>
+        public static string next_to_play_1 {
+            get {
+                return ResourceManager.GetString("next_to_play_1", resourceCulture);
             }
         }
         

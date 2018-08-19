@@ -169,6 +169,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SignalRConfig.cs" />
+    <Compile Include="Business\SerieAction.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameController.cs" />
@@ -202,6 +203,9 @@
       <DependentUpon>LittleGoatModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\Serie.cs">
+      <DependentUpon>LittleGoatModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\SerieActions.cs">
       <DependentUpon>LittleGoatModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\SerieChat.cs">
@@ -367,7 +371,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Business\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

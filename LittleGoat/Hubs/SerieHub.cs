@@ -67,5 +67,11 @@
             var context = GlobalHost.ConnectionManager.GetHubContext<SerieHub>();
             context.Clients.Group(key).startGame();
         }
+
+        public static void SendNextExpectedAction(string key, string message)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<SerieHub>();
+            context.Clients.Group(key).nextExpectedAction(message);
+        }
     }
 }

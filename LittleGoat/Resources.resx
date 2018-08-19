@@ -207,4 +207,11 @@
   <data name="email_already_used" xml:space="preserve">
     <value>Cet email est déjà utilisé. S'il s'agit du votre, n'hésitez pas à utiliser la fonction de récupération de compte.</value>
   </data>
+  <data name="memorize_your_cards" xml:space="preserve">
+    <value>Mémorisez vos cartes !</value>
+  </data>
+  <data name="next_to_play_1" xml:space="preserve">
+    <value>A {0} de jouer !</value>
+    <comment>Nom du joueur</comment>
+  </data>
 </root>

@@ -5,13 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="eebdeaca5ec049699d5da59064032eaa" Name="Diagram1">
-        <EntityTypeShape EntityType="LittleGoatModel.Game" Width="1.5" PointX="5.25" PointY="7.5" />
-        <EntityTypeShape EntityType="LittleGoatModel.GameCard" Width="1.5" PointX="7.5" PointY="3.875" />
-        <EntityTypeShape EntityType="LittleGoatModel.Player" Width="1.5" PointX="0.75" PointY="5.625" />
-        <EntityTypeShape EntityType="LittleGoatModel.Score" Width="1.5" PointX="10.5" PointY="7.25" />
-        <EntityTypeShape EntityType="LittleGoatModel.Serie" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="LittleGoatModel.SerieChat" Width="1.5" PointX="8.25" PointY="8" />
-        <EntityTypeShape EntityType="LittleGoatModel.SeriePlayers" Width="1.5" PointX="8.25" PointY="11.25" />
+        <EntityTypeShape EntityType="LittleGoatModel.Game" Width="1.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="LittleGoatModel.GameCard" Width="1.5" PointX="13.5" PointY="8.5" />
+        <EntityTypeShape EntityType="LittleGoatModel.Player" Width="1.5" PointX="0.75" PointY="7.5" />
+        <EntityTypeShape EntityType="LittleGoatModel.Score" Width="1.5" PointX="7.5" PointY="7.125" />
+        <EntityTypeShape EntityType="LittleGoatModel.Serie" Width="1.5" PointX="3" PointY="12" />
+        <EntityTypeShape EntityType="LittleGoatModel.SerieActions" Width="1.5" PointX="5.25" PointY="13.75" />
+        <EntityTypeShape EntityType="LittleGoatModel.SerieChat" Width="1.5" PointX="8.25" PointY="13" />
+        <EntityTypeShape EntityType="LittleGoatModel.SeriePlayers" Width="1.5" PointX="8.25" PointY="10.25" />
         <AssociationConnector Association="LittleGoatModel.FK__Game__CardGiverI__2E1BDC42" />
         <AssociationConnector Association="LittleGoatModel.FK__Game__LittleGoat__2D27B809" />
         <AssociationConnector Association="LittleGoatModel.FK__Game__NextToPlay__2F10007B" />
@@ -21,8 +22,10 @@
         <AssociationConnector Association="LittleGoatModel.FK__GameCard__Player__36B12243" />
         <AssociationConnector Association="LittleGoatModel.FK__Score__PlayerId__32E0915F" />
         <AssociationConnector Association="LittleGoatModel.FK__Serie__CreatorId__25869641" />
+        <AssociationConnector Association="LittleGoatModel.FK__SerieActi__Playe__619B8048" />
         <AssociationConnector Association="LittleGoatModel.FK__SerieChat__Playe__4AB81AF0" />
         <AssociationConnector Association="LittleGoatModel.FK__SeriePlay__Playe__29572725" />
+        <AssociationConnector Association="LittleGoatModel.FK__SerieActi__Serie__60A75C0F" />
         <AssociationConnector Association="LittleGoatModel.FK__SerieChat__Serie__49C3F6B7" />
         <AssociationConnector Association="LittleGoatModel.FK__SeriePlay__Serie__286302EC" />
       </Diagram>

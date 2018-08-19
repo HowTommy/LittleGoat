@@ -46,13 +46,12 @@
                     model.FirstTwoCards = entities.GameCard.Where(p => p.PlayerId == playerId).OrderBy(p => p.Position).Take(2).ToList();
                 }
 
-                if (game.NextToPlayId == playerId)
-                {
-                    model.CardFromDeck = entities.GameCard
+                model.CardFromDeck = entities.GameCard
                         .Where(p => p.GameId == game.Id && p.PlayerId == null)
                         .OrderBy(p => p.Position)
                         .FirstOrDefault();
-                }
+
+                model.NextExpectedAction = string.Format(Resources.next_to_play_1, game.Player2.Name);
 
                 model.LastChatMessages = entities.SerieChat
                     .Where(p => p.SerieId == key)

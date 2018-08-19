@@ -16,5 +16,7 @@
         public GameCard CardFromDeck { get; internal set; }
 
         public List<ChatMessage> LastChatMessages { get; set; }
+
+        public string NextExpectedAction { get; set; }
     }
 }

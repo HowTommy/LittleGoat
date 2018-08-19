@@ -74,3 +74,17 @@ CREATE TABLE [dbo].[SerieChat]
 	FOREIGN KEY (SerieId) REFERENCES Serie(Id),
 	FOREIGN KEY (PlayerId) REFERENCES Player(Id)
 )
+
+CREATE TABLE [dbo].[GameActions]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [SerieId] NVARCHAR(50) NOT NULL, 
+    [PlayerId] NVARCHAR(50) NULL,
+    [Action] INT NOT NULL,
+	[CardSymbol] INT NOT NULL,
+	[CardValue] INT NOT NULL, 
+	[HiddenData] NVARCHAR(3000) NOT NULL, 
+    [Date] DATETIME NOT NULL,
+	FOREIGN KEY (SerieId) REFERENCES Serie(Id),
+	FOREIGN KEY (PlayerId) REFERENCES Player(Id)
+)

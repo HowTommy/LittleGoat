@@ -49,3 +49,11 @@ textarea {
 	border-color: red;
 	background-color: red;
 }
+
+#nextExpectedAction {
+	border: 1px solid gray;
+	background-color: lightgray;
+	padding: 10px 15px;
+	border-radius: 5px;
+	font-weight: bold;
+}
