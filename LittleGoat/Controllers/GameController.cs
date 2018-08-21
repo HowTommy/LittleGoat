@@ -25,8 +25,8 @@
 
             using (LittleGoatEntities entities = new LittleGoatEntities())
             {
-                var serie = entities.Serie.Single(p => p.Id == key);
-                if(!serie.Started)
+                var serie = entities.Serie.FirstOrDefault(p => p.Id == key);
+                if(serie == null || !serie.Started)
                 {
                     return RedirectToAction("New", "Serie", new { key });
                 }
