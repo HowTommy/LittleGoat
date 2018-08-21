@@ -1,54 +1,63 @@
 ﻿@model LittleGoat.ViewModels.PlayViewModel
 
 @{
-	ViewBag.Title = Resources.in_game;
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = Resources.in_game;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row" style="margin-top: 5px;">
-	<div class="col-md-6 col-md-push-6">
-		@Html.Partial("_Chat", new LittleGoat.ViewModels.ChatViewModel() { SerieId = Model.SerieId, ChatMessages = Model.LastChatMessages, Collapsed = true })
-	</div>
+    <div class="col-md-6 col-md-push-6">
+        @Html.Partial("_Chat", new LittleGoat.ViewModels.ChatViewModel() { SerieId = Model.SerieId, ChatMessages = Model.LastChatMessages, Collapsed = true })
+    </div>
 
-	<div class="col-md-6 col-md-pull-6">
-		<div id="nextExpectedAction">
-			@Resources.memorize_your_cards
-		</div>
-	</div>
+    <div class="col-md-6 col-md-pull-6">
+        <div id="nextExpectedAction">
+            @Resources.memorize_your_cards
+        </div>
+    </div>
 
-	<div class="col-md-6 col-md-pull-6">
-		<div>
-			<img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
-		</div>
+    <div class="col-md-6 col-md-pull-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="@Url.Content("~/Content/Images/deck.jpg")" class="deck" />
+                </div>
+            </div>
 
-		@if (Model.CardFromDeck != null)
-		{
-			<hr />
+            <div class="row">
+                <div class="col-md-12">
+                    @if (Model.CardFromDeck != null)
+                    {
+                        <img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="currentCard" style="display: none;" />
 
-			<div>
-				<img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="currentCard" style="display: none;" />
-			</div>
-		}
+                    }
+                </div>
+            </div>
 
-		<hr />
-
-		@if (Model.FirstTwoCards.Any())
-		{
-			foreach (var card in Model.FirstTwoCards)
-			{
-				<img src="@(Url.Content("~/Content/Images/") + card.FileName)" class="game-card first-two" />
-			}
-		}
-		@for (int i = 0; i < 4 - Model.FirstTwoCards.Count; i++)
-		{
-			<img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card" />
-		}
-	</div>
+            <div class="row">
+                @if (Model.FirstTwoCards.Any())
+                {
+                    for (int i = 0; i < Model.FirstTwoCards.Count; i++)
+                    {
+                        <div class="col-md-3">
+                            <img src="@(Url.Content("~/Content/Images/") + Model.FirstTwoCards[i].FileName)" class="game-card player-card" id="gameCard@(i)" />
+                        </div>
+                    }
+                }
+                @for (int i = Model.FirstTwoCards.Count; i < 4; i++)
+                {
+                    <div class="col-md-3">
+                        <img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card player-card" id="gameCard@(i)" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts{
-	<script src="~/signalr/hubs" type="text/javascript"></script>
-	<script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script>
 		function hideFirstTwoCards() {
 			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
 			$('#currentCard').show();
@@ -153,5 +162,5 @@
 
 			setTimeout(scrollChatToBottom, 500);
 		});
-	</script>
+    </script>
 }
