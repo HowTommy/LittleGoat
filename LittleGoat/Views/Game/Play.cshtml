@@ -28,8 +28,7 @@
                 <div class="col-md-12">
                     @if (Model.CardFromDeck != null)
                     {
-                        <img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" id="currentCard" style="display: none;" />
-
+                        <img src="@(Url.Content("~/Content/Images/") + Model.CardFromDeck.FileName)" class="game-card" data-id="100" id="currentCard" style="display: none;" />
                     }
                 </div>
             </div>
@@ -159,6 +158,24 @@
                 if (selectedCardId === -1) {
                     selectedCardId = Number(that.attr('data-id'));
                     that.parent().addClass('selected');
+                } else if (selectedCardId === Number(that.attr('data-id'))) {
+                    $('#gameCard' + selectedCardId).parent().removeClass('selected');
+                    selectedCardId === -1;
+                } else if (selectedCardId === 100 || that.attr('data-id') === 100) {
+                    that.parent().addClass('selected-red');
+
+                    var cardId = selectedCardId === 100 ? that.attr('data-id') : selectedCardId;
+
+                    // we put the drawn card instead of the current one, and we throw away the current one
+                    $.post('@Url.Action("TakeDrawnCard", "Game")', { key: key, card: cardId }, function (result) {
+                        if (result.ok === false) {
+                            alert(result.errorMessage);
+                        }
+                    });
+
+                    selectedCardId = -1;
+
+                    SwitchCardsAnimation(that, '#gameCard' + selectedCardId);
                 } else {
                     that.parent().addClass('selected-red');
 
@@ -170,20 +187,24 @@
 
                     selectedCardId = -1;
 
-                    setTimeout(function () {
-                        that.parent().removeClass('selected-red');
-                        that.parent().addClass('selected');
-
-                        $('#gameCard' + selectedCardId).parent().removeClass('selected');
-                        $('#gameCard' + selectedCardId).parent().addClass('selected-red');
-                    }, 250);
-
-                    setTimeout(function () {
-                        that.parent().removeClass('selected');
-                        $('#gameCard' + selectedCardId).parent().removeClass('selected-red');
-                    }, 500);
+                    SwitchCardsAnimation(that, '#gameCard' + selectedCardId);
                 }
             });
+
+            var switchCardsAnimation = function (card1, card2) {
+                setTimeout(function () {
+                    $(card1).parent().removeClass('selected-red');
+                    $(card1).parent().addClass('selected');
+
+                    $(card2).parent().removeClass('selected');
+                    $(card2).parent().addClass('selected-red');
+                }, 250);
+
+                setTimeout(function () {
+                    $(card1).parent().removeClass('selected');
+                    $(card2).parent().removeClass('selected-red');
+                }, 500);
+            }
 
 			var windowWidth;
 			if (window.outerHeight) {

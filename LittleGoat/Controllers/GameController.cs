@@ -87,8 +87,48 @@
 
                 var playerCards = entities.GameCard.Where(p => p.GameId == game.Id && p.PlayerId == playerId).OrderBy(p => p.Position).ToArray();
 
-                playerCards[firstCard].Position = playerCards[secondCard].Position;
-                playerCards[secondCard].Position = playerCards[firstCard].Position;
+                var firstCardPosition = playerCards[firstCard].Position;
+                var secondCardPosition = playerCards[secondCard].Position;
+                playerCards[firstCard].Position = secondCardPosition;
+                playerCards[secondCard].Position = firstCardPosition;
+
+                entities.SaveChanges();
+
+                return Json(new { ok = true, errorMessage = string.Empty });
+            }
+        }
+
+        public ActionResult TakeDrawnCard(string key, int card)
+        {
+            var playerId = GetPlayerId();
+
+            using (LittleGoatEntities entities = new LittleGoatEntities())
+            {
+                var serie = entities.Serie.FirstOrDefault(p => p.Id == key);
+                if (serie == null || !serie.Started)
+                {
+                    return Json(new { ok = false, errorMessage = Resources.an_error_occured });
+                }
+
+                var currentPlayer = serie.SeriePlayers.FirstOrDefault(p => p.PlayerId == playerId);
+                if (currentPlayer == null)
+                {
+                    return Json(new { ok = false, errorMessage = Resources.an_error_occured });
+                }
+
+                var game = entities.Game.Single(p => p.SerieId == key && p.Ended == false);
+
+                var drawnCard = entities.GameCard.Where(p => p.GameId == game.Id && p.PlayerId == null).OrderBy(p => p.Position).First();
+                var playerCards = entities.GameCard.Where(p => p.GameId == game.Id && p.PlayerId == playerId).OrderBy(p => p.Position).ToArray();
+
+                var playerCard = playerCards[card];
+                var playerCardPosition = playerCards[card].Position;
+                var drawnCardPosition = drawnCard.Position;
+
+                playerCard.Position = drawnCardPosition;
+
+                drawnCard.PlayerId = playerId;
+                drawnCard.Position = playerCardPosition;
 
                 entities.SaveChanges();
 
