@@ -26,13 +26,13 @@
             using (LittleGoatEntities entities = new LittleGoatEntities())
             {
                 var serie = entities.Serie.FirstOrDefault(p => p.Id == key);
-                if(serie == null || !serie.Started)
+                if (serie == null || !serie.Started)
                 {
                     return RedirectToAction("New", "Serie", new { key });
                 }
 
                 var currentPlayer = serie.SeriePlayers.FirstOrDefault(p => p.PlayerId == playerId);
-                if(currentPlayer == null)
+                if (currentPlayer == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -43,7 +43,7 @@
 
                 if (game.CreationDate.AddSeconds(NB_SECONDS_TO_SHOW_FIRST_TWO_CARDS) >= DateTime.UtcNow)
                 {
-                    model.FirstTwoCards = entities.GameCard.Where(p => p.PlayerId == playerId).OrderBy(p => p.Position).Take(2).ToList();
+                    model.FirstTwoCards = entities.GameCard.Where(p => p.GameId == game.Id && p.PlayerId == playerId).OrderBy(p => p.Position).Take(2).ToList();
                 }
 
                 model.CardFromDeck = entities.GameCard
@@ -65,9 +65,35 @@
             return View(model);
         }
 
-        public ActionResult SwitchPlayerCards(int firstCard, int secondCard)
+        public ActionResult SwitchPlayerCards(string key, int firstCard, int secondCard)
         {
-            throw new NotImplementedException();
+            var playerId = GetPlayerId();
+
+            using (LittleGoatEntities entities = new LittleGoatEntities())
+            {
+                var serie = entities.Serie.FirstOrDefault(p => p.Id == key);
+                if (serie == null || !serie.Started)
+                {
+                    return Json(new { ok = false, errorMessage = Resources.an_error_occured });
+                }
+
+                var currentPlayer = serie.SeriePlayers.FirstOrDefault(p => p.PlayerId == playerId);
+                if (currentPlayer == null)
+                {
+                    return Json(new { ok = false, errorMessage = Resources.an_error_occured });
+                }
+
+                var game = entities.Game.Single(p => p.SerieId == key && p.Ended == false);
+
+                var playerCards = entities.GameCard.Where(p => p.GameId == game.Id && p.PlayerId == playerId).OrderBy(p => p.Position).ToArray();
+
+                playerCards[firstCard].Position = playerCards[secondCard].Position;
+                playerCards[secondCard].Position = playerCards[firstCard].Position;
+
+                entities.SaveChanges();
+
+                return Json(new { ok = true, errorMessage = string.Empty });
+            }
         }
     }
 }
