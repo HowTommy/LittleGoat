@@ -32,8 +32,7 @@ textarea {
 }
 
 .deck {
-	max-height: 180px;
-	max-width: 25%;
+	max-height: 160px;
 }
 
 #bt-copy-clipboard {
@@ -55,4 +54,12 @@ textarea {
 	padding: 10px 15px;
 	border-radius: 5px;
 	font-weight: bold;
+}
+
+.selected {
+    background-color: blue;
+}
+
+.selected-red {
+    background-color: red;
 }

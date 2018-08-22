@@ -64,5 +64,10 @@
 
             return View(model);
         }
+
+        public ActionResult SwitchPlayerCards(int firstCard, int secondCard)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

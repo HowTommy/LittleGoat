@@ -39,15 +39,15 @@
                 {
                     for (int i = 0; i < Model.FirstTwoCards.Count; i++)
                     {
-                        <div class="col-md-3">
-                            <img src="@(Url.Content("~/Content/Images/") + Model.FirstTwoCards[i].FileName)" class="game-card player-card" id="gameCard@(i)" />
+                        <div class="col-xs-3">
+                            <img src="@(Url.Content("~/Content/Images/") + Model.FirstTwoCards[i].FileName)" class="game-card player-card" id="gameCard@(i)" data-id="@i" />
                         </div>
                     }
                 }
                 @for (int i = Model.FirstTwoCards.Count; i < 4; i++)
                 {
-                    <div class="col-md-3">
-                        <img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card player-card" id="gameCard@(i)" />
+                    <div class="col-xs-3">
+                        <img src="@Url.Content("~/Content/Images/back_of_card.jpg")" class="game-card player-card" id="gameCard@(i)" data-id="@i" />
                     </div>
                 }
             </div>
@@ -58,6 +58,9 @@
 @section scripts{
     <script src="~/signalr/hubs" type="text/javascript"></script>
     <script>
+
+        var selectedCardId = -1;
+
 		function hideFirstTwoCards() {
 			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
 			$('#currentCard').show();
@@ -147,7 +150,36 @@
 					hub.server.broadcastChatMessageToGroup('@Model.SerieId', $('#btn-input').val());
 					$('#btn-input').val('');
 				});
-			});
+            });
+
+            $('.game-card').click(function () {
+                var that = $(this);
+                if (selectedCardId === -1) {
+                    selectedCardId = Number(that.attr('data-id'));
+                    that.parent().addClass('selected');
+                } else {
+                    that.parent().addClass('selected-red');
+
+                    $.post('@Url.Action("SwitchPlayerCards", "Game")', { firstCard: selectedCardId, secondCard: Number(that.attr('data-id')) }, function (result) {
+
+                    });
+
+                    selectedCardId = -1;
+
+                    setTimeout(function () {
+                        that.parent().removeClass('selected-red');
+                        that.parent().addClass('selected');
+
+                        $('#gameCard' + selectedCardId).parent().removeClass('selected');
+                        $('#gameCard' + selectedCardId).parent().addClass('selected-red');
+                    }, 250);
+
+                    setTimeout(function () {
+                        that.parent().removeClass('selected');
+                        $('#gameCard' + selectedCardId).parent().removeClass('selected-red');
+                    }, 500);
+                }
+            });
 
 			var windowWidth;
 			if (window.outerHeight) {
@@ -156,11 +188,15 @@
 			else {
 				windowWidth = document.body.clientWidth;
 			}
-			if (windowWidth > 768) {
-				$('#collapseLink').click();
-			}
+            if (windowWidth > 892) {
+                setTimeout(function () { $('#collapseLink').click(); }, 100)
+            }
 
-			setTimeout(scrollChatToBottom, 500);
+            $('#collapseLink').click(function () {
+                if ($('#collapseOne').hasClass('collapse')) {
+                    setTimeout(scrollChatToBottom, 100);
+                }
+            });
 		});
     </script>
 }
