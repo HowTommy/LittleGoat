@@ -39,7 +39,7 @@
                     for (int i = 0; i < Model.FirstTwoCards.Count; i++)
                     {
                         <div class="col-xs-3">
-                            <img src="@(Url.Content("~/Content/Images/") + Model.FirstTwoCards[i].FileName)" class="game-card player-card" id="gameCard@(i)" data-id="@i" />
+                            <img src="@(Url.Content("~/Content/Images/") + Model.FirstTwoCards[i].FileName)" class="game-card player-card first-two" id="gameCard@(i)" data-id="@i" />
                         </div>
                     }
                 }
@@ -63,7 +63,8 @@
         var selectedCardId = -1;
 
 		function hideFirstTwoCards() {
-			$('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
+            $('.first-two').attr('src', '@Url.Content("~/Content/Images/back_of_card.jpg")');
+            $('.first-two').removeClass('first-two');
 			$('#currentCard').show();
 			$('#nextExpectedAction').html('@Model.NextExpectedAction');
 		}
@@ -185,9 +186,9 @@
                         }
                     });
 
-                    selectedCardId = -1;
+                    switchCardsAnimation('#' + that.attr('id'), '#gameCard' + selectedCardId);
 
-                    SwitchCardsAnimation(that, '#gameCard' + selectedCardId);
+                    selectedCardId = -1;
                 }
             });
 
@@ -198,12 +199,12 @@
 
                     $(card2).parent().removeClass('selected');
                     $(card2).parent().addClass('selected-red');
-                }, 250);
+                }, 200);
 
                 setTimeout(function () {
                     $(card1).parent().removeClass('selected');
                     $(card2).parent().removeClass('selected-red');
-                }, 500);
+                }, 400);
             }
 
 			var windowWidth;
